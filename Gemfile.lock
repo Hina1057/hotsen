@@ -75,6 +75,7 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0)
     base64 (0.3.0)
+    bcrypt (3.1.20)
     benchmark (0.5.0)
     bigdecimal (3.3.1)
     builder (3.3.0)
@@ -198,6 +199,7 @@ PLATFORMS
   arm64-darwin-24
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   debug
   puma (~> 5.0)
   rails (~> 7.0.4)

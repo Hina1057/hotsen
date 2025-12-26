@@ -1,6 +1,67 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # 0 トップ
+  root "top#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # =========================
+  # お客様側
+  # =========================
+
+  # セッション（ログイン/ログアウト）
+  resource :session, only: [:new, :create, :destroy]
+
+  # 会員（account）
+  resources :accounts, path: "account", only: [:new, :create, :show, :edit, :update] do
+    member do
+      # 1.3 現在の予約情報（予約一覧）
+      get :reservations
+      # 退会（必要なら画面側にボタンだけ置く）
+      delete :destroy
+    end
+  end
+
+  # ホテル（一覧・詳細）
+  resources :hotels, only: [:index, :show] do
+    member do
+      # 予約フロー（画面遷移図に合わせてGET中心）
+      get "reservation/new",      to: "reservations#new"
+      get "reservation/confirm",  to: "reservations#confirm"
+      get "reservation/complete", to: "reservations#complete"
+    end
+  end
+
+  # 予約キャンセル（予約情報から）
+  resources :reservations, only: [] do
+    member do
+      delete :cancel
+    end
+  end
+
+  # お知らせ（閲覧）
+  resources :informations, only: [:index, :show]
+
+  # =========================
+  # 管理者側
+  # =========================
+  namespace :admin do
+    # 管理者セッション（ログイン/ログアウト）
+    resource :session, only: [:new, :create, :destroy]
+
+    # 管理者トップ
+    root "top#index"
+
+    # 会員管理（一覧・詳細）
+    resources :accounts, only: [:index, :show]
+
+    # ホテル管理（一覧・詳細）
+    resources :hotels, only: [:index, :show] do
+      # 客室管理（追加/編集画面が必要なら new/edit も足す）
+      resources :rooms, only: [:new, :create, :edit, :update, :destroy]
+    end
+
+    # 予約管理（一覧・詳細）
+    resources :reservations, only: [:index, :show]
+
+    # お知らせ管理（一覧・追加画面）
+    resources :informations, only: [:index, :new, :create, :destroy]
+  end
 end
