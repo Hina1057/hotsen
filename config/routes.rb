@@ -2,10 +2,7 @@ Rails.application.routes.draw do
   # 0 トップ
   root "top#index"
 
-  # =========================
   # お客様側
-  # =========================
-
   # セッション（ログイン/ログアウト）
   resource :session, only: [:new, :create, :destroy]
 
@@ -14,7 +11,6 @@ Rails.application.routes.draw do
     member do
       # 1.3 現在の予約情報（予約一覧）
       get :reservations
-      # 退会（必要なら画面側にボタンだけ置く）
       delete :destroy
     end
   end
@@ -39,9 +35,8 @@ Rails.application.routes.draw do
   # お知らせ（閲覧）
   resources :informations, only: [:index, :show]
 
-  # =========================
   # 管理者側
-  # =========================
+
   namespace :admin do
     # 管理者セッション（ログイン/ログアウト）
     resource :session, only: [:new, :create, :destroy]
