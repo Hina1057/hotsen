@@ -1,0 +1,21 @@
+<h1>ログイン</h1>
+
+<% if flash[:alert] %>
+  <p style="color:red;"><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_with url: session_path, method: :post do %>
+  <div>
+    <label>アカウント名</label><br>
+    <%= text_field_tag :name %>
+  </div>
+
+  <div>
+    <label>パスワード</label><br>
+    <%= password_field_tag :password %>
+  </div>
+
+  <%= submit_tag "ログイン" %>
+<% end %>
+
+<p><%= link_to "新規会員登録", new_account_path %></p>

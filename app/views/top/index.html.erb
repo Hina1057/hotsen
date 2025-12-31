@@ -1,0 +1,51 @@
+<h1>トップ</h1>
+
+<hr>
+
+<h2>検索</h2>
+<%= form_with url: hotels_path, method: :get do %>
+  <div>
+    <label>エリア</label>
+    <%= text_field_tag :area, params[:area] %>
+  </div>
+
+  <div>
+    <label>チェックイン日</label>
+    <%= date_field_tag :check_in_on, params[:check_in_on] %>
+  </div>
+
+  <div>
+    <label>宿泊数</label>
+    <%= number_field_tag :stay_count, (params[:stay_count] || 1), min: 1 %>
+  </div>
+
+  <div>
+    <label>人数</label>
+    <%= number_field_tag :guest_count, (params[:guest_count] || 1), min: 1 %>
+  </div>
+
+  <%= submit_tag "検索する" %>
+<% end %>
+
+<hr>
+
+<h2>ログイン</h2>
+<%= link_to "ログイン画面へ", new_session_path %>
+<%= link_to "新規会員登録", new_account_path %>
+
+<hr>
+
+<h2>サイトからのお知らせ</h2>
+<% if @informations.any? %>
+  <ul>
+    <% @informations.each do |info| %>
+      <li>
+        <%= link_to info.title, information_path(info) %>
+        （<%= info.created_at.to_date %>）
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to "お知らせ一覧へ", informations_path %>
+<% else %>
+  <p>お知らせはまだありません。</p>
+<% end %>

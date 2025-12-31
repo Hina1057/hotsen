@@ -1,0 +1,15 @@
+<h1>マイページ</h1>
+
+<p>アカウント名：<%= @account.name %></p>
+<p>メール：<%= @account.email %></p>
+<p>住所：<%= @account.address %></p>
+<p>誕生日：<%= @account.birthday %></p>
+<p>電話番号：<%= @account.phone_number %></p>
+
+<p>
+  <%= link_to "会員情報編集", edit_account_path(@account) %>
+</p>
+
+<p>
+  <%= button_to "ログアウト", session_path, method: :delete %>
+</p>
