@@ -1,0 +1,25 @@
+<h1><%= @hotel.name %></h1>
+
+<p>エリア：<%= @hotel.area %></p>
+<p>住所：<%= @hotel.address %></p>
+<p>電話：<%= @hotel.phone_number %></p>
+
+<hr>
+
+<h2>部屋一覧</h2>
+<% if @rooms.any? %>
+  <ul>
+    <% @rooms.each do |room| %>
+      <li>
+        部屋タイプ：<%= room.room_type %> /
+        定員：<%= room.max_person %> /
+        料金：<%= room.room_price %> /
+        在庫：<%= room.room_stock %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>部屋情報がありません。</p>
+<% end %>
+
+<p><%= link_to "一覧へ戻る", hotels_path(area: params[:area], check_in_on: params[:check_in_on], stay_count: params[:stay_count], guest_count: params[:guest_count]) %></p>

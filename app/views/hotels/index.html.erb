@@ -1,0 +1,30 @@
+<h1>ホテル一覧</h1>
+
+<p>
+  検索条件：
+  エリア「<%= @area.presence || "未指定" %>」 /
+  チェックイン日「<%= @check_in_on.presence || "未指定" %>」 /
+  宿泊数「<%= @stay_count.presence || "未指定" %>」 /
+  人数「<%= @guest_count.presence || "未指定" %>」
+</p>
+
+<hr>
+
+<% if @hotels.any? %>
+  <ul>
+    <% @hotels.each do |hotel| %>
+      <li>
+        <%= link_to hotel.name, hotel_path(hotel,
+              check_in_on: @check_in_on,
+              stay_count: @stay_count,
+              guest_count: @guest_count
+            ) %>
+        （<%= hotel.area %> / <%= hotel.address %>）
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>該当するホテルがありません。</p>
+<% end %>
+
+<p><%= link_to "トップへ戻る", root_path %></p>
