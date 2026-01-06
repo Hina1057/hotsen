@@ -1,0 +1,47 @@
+<h1>ホテル詳細（管理者）</h1>
+
+<p>ID: <%= @hotel.id %></p>
+<p>ホテル名: <%= @hotel.name %></p>
+<p>エリア: <%= @hotel.area %></p>
+<p>住所: <%= @hotel.address %></p>
+<p>電話: <%= @hotel.phone_number %></p>
+
+<hr>
+
+<h2>部屋一覧</h2>
+
+<p><%= link_to "部屋を追加", new_admin_hotel_room_path(@hotel) %></p>
+
+<% if @rooms.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>タイプ</th>
+        <th>定員</th>
+        <th>価格</th>
+        <th>在庫</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rooms.each do |r| %>
+        <tr>
+          <td><%= r.id %></td>
+          <td><%= r.room_type %></td>
+          <td><%= r.max_person %></td>
+          <td><%= r.room_price %></td>
+          <td><%= r.room_stock %></td>
+          <td>
+            <%= link_to "編集", edit_admin_hotel_room_path(@hotel, r) %>
+            <%= button_to "削除", admin_hotel_room_path(@hotel, r), method: :delete, data: { confirm: "削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>部屋がありません。</p>
+<% end %>
+
+<p><%= link_to "ホテル一覧へ戻る", admin_hotels_path %></p>

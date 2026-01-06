@@ -1,0 +1,11 @@
+<h1>会員詳細</h1>
+
+<p>ID: <%= @account.id %></p>
+<p>名前: <%= @account.name %></p>
+<p>メール: <%= @account.email %></p>
+<p>住所: <%= @account.address %></p>
+<p>生年月日: <%= @account.birthday %></p>
+<p>性別: <%= @account.sex %></p>
+<p>電話番号: <%= @account.phone_number %></p>
+
+<p><%= link_to "一覧へ戻る", admin_accounts_path %></p>

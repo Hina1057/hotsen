@@ -1,0 +1,35 @@
+<h1>部屋追加</h1>
+
+<% if @room.errors.any? %>
+  <ul>
+    <% @room.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: [:admin, @hotel, @room], local: true do |f| %>
+  <div>
+    <%= f.label :room_type, "タイプ" %><br>
+    <%= f.select :room_type, Room.room_types.keys.map { |k| [k, k] } %>
+  </div>
+
+  <div>
+    <%= f.label :max_person, "定員" %><br>
+    <%= f.number_field :max_person, min: 1 %>
+  </div>
+
+  <div>
+    <%= f.label :room_price, "価格" %><br>
+    <%= f.number_field :room_price, min: 0 %>
+  </div>
+
+  <div>
+    <%= f.label :room_stock, "在庫" %><br>
+    <%= f.number_field :room_stock, min: 0 %>
+  </div>
+
+  <%= f.submit "追加する" %>
+<% end %>
+
+<p><%= link_to "ホテル詳細へ戻る", admin_hotel_path(@hotel) %></p>

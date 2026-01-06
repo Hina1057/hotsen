@@ -1,0 +1,24 @@
+<h1>会員一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>メール</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |a| %>
+      <tr>
+        <td><%= a.id %></td>
+        <td><%= a.name %></td>
+        <td><%= a.email %></td>
+        <td><%= link_to "詳細", admin_account_path(a) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "管理者トップへ戻る", admin_root_path %></p>

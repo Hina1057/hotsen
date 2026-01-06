@@ -1,0 +1,28 @@
+<h1>ホテル一覧（管理者）</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ホテル名</th>
+      <th>エリア</th>
+      <th>電話番号</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hotels.each do |hotel| %>
+      <tr>
+        <td><%= hotel.id %></td>
+        <td><%= hotel.name %></td>
+        <td><%= hotel.area %></td>
+        <td><%= hotel.phone_number %></td>
+        <td>
+          <%= link_to "詳細", admin_hotel_path(hotel) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "管理者トップへ戻る", admin_root_path %></p>

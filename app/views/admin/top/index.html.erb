@@ -1,2 +1,12 @@
-<h1>Admin::Top#index</h1>
-<p>Find me in app/views/admin/top/index.html.erb</p>
+<h1>管理者トップ</h1>
+
+<p>ログイン中: <%= current_admin.name %></p>
+
+<ul>
+  <li><%= link_to "会員一覧", admin_accounts_path %></li>
+  <li><%= link_to "ホテル一覧", admin_hotels_path %></li>
+  <li><%= link_to "予約一覧", admin_reservations_path %></li>
+  <li><%= link_to "お知らせ管理", admin_informations_path %></li>
+</ul>
+
+<%= button_to "ログアウト", admin_session_path, method: :delete %>
