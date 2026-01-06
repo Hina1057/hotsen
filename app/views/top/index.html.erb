@@ -1,5 +1,7 @@
 <h1>トップ</h1>
-
+<% if flash[:alert].present? %>
+  <p><%= flash[:alert] %></p>
+<% end %>
 <hr>
 
 <h2>検索</h2>
