@@ -33,6 +33,18 @@ class AccountsController < ApplicationController
     end
   end
 
+  def reservations
+    # 他人の予約一覧を見せない
+    if params[:id].to_i != current_account.id
+      redirect_to account_path(current_account), alert: "権限がありません"
+      return
+    end
+
+    @reservations = current_account.reservations
+                                  .includes(:hotel, :room)
+                                  .order(check_in_on: :asc, created_at: :desc)
+  end
+
   private
 
   def account_params

@@ -5,6 +5,12 @@
 <p>電話：<%= @hotel.phone_number %></p>
 
 <hr>
+<%= link_to "このホテルを予約する",
+    new_hotel_reservation_path(@hotel,
+      check_in_on: params[:check_in_on],
+      stay_count: params[:stay_count],
+      guest_count: params[:guest_count]
+    ) %>
 
 <h2>部屋一覧</h2>
 <% if @rooms.any? %>

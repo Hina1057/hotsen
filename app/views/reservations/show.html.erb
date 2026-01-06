@@ -1,0 +1,11 @@
+<h1>予約完了</h1>
+
+<p>ホテル：<%= @reservation.hotel.name %></p>
+<p>部屋：<%= @reservation.room_id %></p>
+<p>チェックイン：<%= @reservation.check_in_on %></p>
+<p>宿泊数：<%= @reservation.stay_count %></p>
+<p>人数：<%= @reservation.guest_count %></p>
+
+<p>
+  <%= link_to "トップページへ戻る", root_path %>
+</p>

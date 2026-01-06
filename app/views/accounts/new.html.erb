@@ -1,2 +1,55 @@
-<h1>Accounts#new</h1>
-<p>Find me in app/views/accounts/new.html.erb</p>
+<h1>新規会員登録</h1>
+
+<% if @account.errors.any? %>
+  <ul>
+    <% @account.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @account do |f| %>
+  <div>
+    <%= f.label :name, "名前" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email, "メール" %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, "パスワード" %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "パスワード確認" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :birthday, "誕生日" %><br>
+    <%= f.date_field :birthday %>
+  </div>
+
+  <div>
+    <%= f.label :sex, "性別" %><br>
+    <%= f.select :sex, [["未選択", "unknown"], ["男性", "male"], ["女性", "female"]] %>
+  </div>
+
+  <div>
+    <%= f.label :phone_number, "電話番号" %><br>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <%= f.submit "登録" %>
+<% end %>
+
+<p><%= link_to "トップへ戻る", root_path %></p>

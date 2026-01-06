@@ -8,5 +8,8 @@ class Room < ApplicationRecord
     validates :max_person, presence: true, numericality: { only_integer: true, greater_than: 0 }
     validates :room_price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :room_stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    def label
+        "#{room_type} / 定員#{max_person}名 / #{room_price}円"
+    end
   end
   

@@ -1,0 +1,42 @@
+<h1>予約一覧</h1>
+
+<% if @reservations.empty? %>
+  <p>予約はありません</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>ホテル</th>
+        <th>部屋</th>
+        <th>チェックイン</th>
+        <th>宿泊数</th>
+        <th>人数</th>
+        <th>合計</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |r| %>
+        <tr>
+          <td><%= r.hotel.name %></td>
+          <td><%= r.room.label %></td>
+          <td><%= r.check_in_on %></td>
+          <td><%= r.stay_count %></td>
+          <td><%= r.guest_count %></td>
+          <td><%= r.total_price %>円</td>
+          <td>
+            <%= link_to "詳細", reservation_path(r) %>
+            |
+            <%= button_to "キャンセル",
+                          cancel_reservation_path(r),
+                          method: :delete,
+                          data: { confirm: "この予約をキャンセルしますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<p><%= link_to "トップへ戻る", root_path %></p>
+<p><%= link_to "マイページへ戻る", account_path(current_account) %></p>

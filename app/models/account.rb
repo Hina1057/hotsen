@@ -3,7 +3,7 @@ class Account < ApplicationRecord
   
     has_many :reservations, dependent: :destroy
   
-    enum sex: { unknown: 0, male: 1, female: 2 }, _prefix: true
+    enum sex: { unknown: 0, male: 1, female: 2 }
   
     validates :name, presence: true
     validates :email, presence: true, uniqueness: true

@@ -17,20 +17,21 @@ Rails.application.routes.draw do
 
   # ホテル（一覧・詳細）
   resources :hotels, only: [:index, :show] do
-    member do
-      # 予約フロー（画面遷移図に合わせてGET中心）
-      get "reservation/new",      to: "reservations#new"
-      get "reservation/confirm",  to: "reservations#confirm"
-      get "reservation/complete", to: "reservations#complete"
+    resources :reservations, only: [:new, :create] do
+      collection do
+        post :confirm
+      end
     end
   end
+  
 
   # 予約キャンセル（予約情報から）
-  resources :reservations, only: [] do
+  resources :reservations, only: [:show] do
     member do
       delete :cancel
     end
   end
+  
 
   # お知らせ（閲覧）
   resources :informations, only: [:index, :show]

@@ -1,0 +1,60 @@
+<h1>会員情報の変更</h1>
+
+<% if @account.errors.any? %>
+  <ul>
+    <% @account.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @account, url: account_path(@account), method: :patch, local: true do |f| %>
+
+  <div>
+    <%= f.label :name, "名前" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email, "メール" %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :birthday, "生年月日" %><br>
+    <%= f.date_field :birthday %>
+  </div>
+
+  <div>
+    <%= f.label :sex, "性別" %><br>
+    <%= f.select :sex, Account.sexes.keys.map { |k| [k, k] } %>
+  </div>
+
+  <div>
+    <%= f.label :phone_number, "電話番号" %><br>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <hr>
+
+  <p>パスワードを変更する場合のみ入力</p>
+
+  <div>
+    <%= f.label :password, "新しいパスワード" %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "新しいパスワード（確認）" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit "更新する" %>
+<% end %>
+
+<p><%= link_to "マイページへ戻る", account_path(@account) %></p>
