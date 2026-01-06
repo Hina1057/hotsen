@@ -1,0 +1,9 @@
+<h1><%= @information.title %></h1>
+<p><%= @information.created_at.to_date %></p>
+
+<div>
+  <%= simple_format(@information.body) %>
+</div>
+
+<p><%= link_to "お知らせ一覧へ戻る", informations_path %></p>
+<p><%= link_to "トップへ戻る", root_path %></p>

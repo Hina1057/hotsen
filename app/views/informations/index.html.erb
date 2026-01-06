@@ -1,0 +1,16 @@
+<h1>お知らせ一覧</h1>
+
+<% if @informations.any? %>
+  <ul>
+    <% @informations.each do |info| %>
+      <li>
+        <%= link_to info.title, information_path(info) %>
+        （<%= info.created_at.to_date %>）
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>お知らせはまだありません。</p>
+<% end %>
+
+<p><%= link_to "トップへ戻る", root_path %></p>

@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     end
   end
 
+  #faq
+  get "/faq", to: "pages#faq"
+
   # ホテル（一覧・詳細）
   resources :hotels, only: [:index, :show] do
     resources :reservations, only: [:new, :create] do
