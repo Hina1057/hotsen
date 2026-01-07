@@ -3,7 +3,6 @@
 <table>
   <thead>
     <tr>
-      <th>ID</th>
       <th>予約者</th>
       <th>ホテル</th>
       <th>部屋</th>
@@ -18,7 +17,6 @@
   <tbody>
     <% @reservations.each do |r| %>
       <tr>
-        <td><%= r.id %></td>
         <td><%= r.account.name %></td>
         <td><%= r.hotel.name %></td>
         <td><%= r.room.room_type %></td>
