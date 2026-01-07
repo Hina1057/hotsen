@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     end
 
     # 予約管理（一覧・詳細）
-    resources :reservations, only: [:index, :show]
+    resources :reservations, only: [:index, :show, :destroy]
 
     # お知らせ管理（一覧・追加画面）
     resources :informations, only: [:index, :new, :create, :destroy]

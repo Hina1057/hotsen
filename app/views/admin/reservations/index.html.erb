@@ -27,7 +27,14 @@
         <td><%= r.guest_count %></td>
         <td><%= r.total_price %></td>
         <td><%= r.created_at.to_date %></td>
-        <td><%= link_to "詳細", admin_reservation_path(r) %></td>
+        <td>
+        <%= link_to "詳細", admin_reservation_path(r) %>
+        <%= button_to "削除",
+        admin_reservation_path(r),
+        method: :delete,
+        data: { confirm: "この予約を削除しますか？" } %>
+        </td>
+
       </tr>
     <% end %>
   </tbody>
