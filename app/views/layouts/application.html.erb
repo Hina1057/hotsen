@@ -11,16 +11,24 @@
   </head>
 
   <body>
-  <header style="padding: 10px; border-bottom: 1px solid #ccc;">
-    <%= link_to root_path, style: "text-decoration: none; display: flex; align-items: center;" do %>
-      <%= image_tag "logo.png", alt: "アプリロゴ", style: "height: 40px; margin-right: 10px;" %>
-      <span style="font-size: 20px; font-weight: bold; color: #333;">
-        HotSen
-      </span>
+    <header style="padding: 10px; border-bottom: 1px solid #ccc; display:flex; align-items:center; gap:16px;">
+  <%= link_to root_path, style: "text-decoration: none; display: flex; align-items: center; gap:10px;" do %>
+    <%= image_tag "logo.png", alt: "アプリロゴ", style: "height: 40px;" %>
+    <span style="font-size: 20px; font-weight: bold; color: #333;">
+      HotSen
+    </span>
+  <% end %>
+
+  <div style="margin-left:auto;">
+    <% if logged_in? %>
+      <%= button_to "ログアウト", session_path, method: :delete, form: { data: { turbo: false } } %>
+    <% else %>
+      <%= link_to "ログイン", new_session_path %>
+       <%= link_to "新規会員登録", new_account_path %>
     <% end %>
-  </header>
+  </div>
+</header>
 
-  <%= yield %>
-</body>
-
+    <%= yield %>
+  </body>
 </html>
