@@ -1,0 +1,30 @@
+<h1>管理者 新規追加</h1>
+
+<% if @admin.errors.any? %>
+  <ul>
+    <% @admin.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: [:admin, @admin], local: true do |f| %>
+  <div>
+    <%= f.label :name, "名前" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :password, "パスワード" %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "確認" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit "追加する" %>
+<% end %>
+
+<p><%= link_to "一覧へ戻る", admin_admins_path %></p>

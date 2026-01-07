@@ -51,9 +51,11 @@ Rails.application.routes.draw do
     # 会員管理（一覧・詳細）
     resources :accounts, only: [:index, :show]
 
+    resources :admins, only: [:index, :new, :create, :edit, :update, :destroy]
+
     # ホテル管理（一覧・詳細）
-    resources :hotels, only: [:index, :show] do
-      # 客室管理（追加/編集画面が必要なら new/edit も足す）
+    resources :hotels, only: [:index, :show, :new, :create] do
+      
       resources :rooms, only: [:new, :create, :edit, :update, :destroy]
     end
 

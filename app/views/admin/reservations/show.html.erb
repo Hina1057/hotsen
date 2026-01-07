@@ -1,0 +1,23 @@
+<h1>予約詳細（管理者）</h1>
+
+<p>ID: <%= @reservation.id %></p>
+
+<h2>予約者</h2>
+<p><%= @reservation.account.name %>（<%= @reservation.account.email %>）</p>
+
+<h2>ホテル / 部屋</h2>
+<p>ホテル: <%= @reservation.hotel.name %></p>
+<p>部屋: <%= @reservation.room.room_type %></p>
+
+<h2>予約内容</h2>
+<p>チェックイン: <%= @reservation.check_in_on %></p>
+<p>泊数: <%= @reservation.stay_count %></p>
+<p>人数: <%= @reservation.guest_count %></p>
+<p>支払い: <%= @reservation.pay_method %></p>
+<p>朝食: <%= @reservation.breakfast ? "あり" : "なし" %></p>
+<p>夕食: <%= @reservation.dinner ? "あり" : "なし" %></p>
+<p>合計金額: <%= @reservation.total_price %></p>
+
+<p>作成日時: <%= @reservation.created_at %></p>
+
+<p><%= link_to "一覧へ戻る", admin_reservations_path %></p>

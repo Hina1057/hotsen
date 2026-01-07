@@ -1,0 +1,29 @@
+<h1>管理者一覧</h1>
+
+<p><%= link_to "新規追加", new_admin_admin_path %></p>
+<p><%= link_to "管理者一覧", admin_admins_path %></p>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @admins.each do |a| %>
+      <tr>
+        <td><%= a.id %></td>
+        <td><%= a.name %></td>
+        <td>
+          <%= link_to "編集", edit_admin_admin_path(a) %>
+          <%= button_to "削除", admin_admin_path(a), method: :delete, data: { confirm: "削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "管理者トップへ", admin_root_path %></p>

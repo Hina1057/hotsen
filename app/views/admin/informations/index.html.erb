@@ -1,0 +1,32 @@
+<h1>お知らせ管理</h1>
+
+<p><%= link_to "新規作成", new_admin_information_path %></p>
+
+<% if @informations.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>タイトル</th>
+        <th>作成日</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @informations.each do |info| %>
+        <tr>
+          <td><%= info.id %></td>
+          <td><%= info.title %></td>
+          <td><%= info.created_at.to_date %></td>
+          <td>
+            <%= button_to "削除", admin_information_path(info), method: :delete, data: { confirm: "削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>お知らせはまだありません。</p>
+<% end %>
+
+<p><%= link_to "管理者トップへ戻る", admin_root_path %></p>
