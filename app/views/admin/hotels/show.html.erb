@@ -1,5 +1,8 @@
 <h1>ホテル詳細（管理者）</h1>
 
+<p><%= link_to "編集", edit_admin_hotel_path(@hotel) %></p>
+
+
 <p>ID: <%= @hotel.id %></p>
 <p>ホテル名: <%= @hotel.name %></p>
 <p>エリア: <%= @hotel.area %></p>
@@ -7,6 +10,24 @@
 <p>電話: <%= @hotel.phone_number %></p>
 
 <hr>
+
+<h3>設備・サービス</h3>
+
+<ul>
+  <% if @hotel.wifi %><li>Wi-Fi</li><% end %>
+  <% if @hotel.large_bath %><li>大浴場</li><% end %>
+  <% if @hotel.openair_bath %><li>露天風呂</li><% end %>
+  <% if @hotel.sauna %><li>サウナ</li><% end %>
+  <% if @hotel.bedrock_bath %><li>岩盤浴</li><% end %>
+  <% if @hotel.barrier_free %><li>バリアフリー</li><% end %>
+  <% if @hotel.smoking_area %><li>喫煙所</li><% end %>
+</ul>
+
+<h3>ホテル説明</h3>
+
+<% if @hotel.information.present? %>
+  <p><%= simple_format(@hotel.information) %></p>
+<% end %>
 
 <h2>部屋一覧</h2>
 
@@ -43,5 +64,6 @@
 <% else %>
   <p>部屋がありません。</p>
 <% end %>
+
 
 <p><%= link_to "ホテル一覧へ戻る", admin_hotels_path %></p>

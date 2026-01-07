@@ -1,0 +1,50 @@
+<h1>ホテル追加</h1>
+
+<% if @hotel.errors.any? %>
+  <ul>
+    <% @hotel.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: [:admin, @hotel], local: true do |f| %>
+  <div>
+    <%= f.label :name, "ホテル名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :area, "エリア" %><br>
+    <%= f.text_field :area %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :phone_number, "電話番号" %><br>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <hr>
+
+  <div><%= f.check_box :wifi %> <%= f.label :wifi, "Wi-Fi" %></div>
+  <div><%= f.check_box :large_bath %> <%= f.label :large_bath, "大浴場" %></div>
+  <div><%= f.check_box :openair_bath %> <%= f.label :openair_bath, "露天風呂" %></div>
+  <div><%= f.check_box :sauna %> <%= f.label :sauna, "サウナ" %></div>
+  <div><%= f.check_box :bedrock_bath %> <%= f.label :bedrock_bath, "岩盤浴" %></div>
+  <div><%= f.check_box :barrier_free %> <%= f.label :barrier_free, "バリアフリー" %></div>
+  <div><%= f.check_box :smoking_area %> <%= f.label :smoking_area, "喫煙所" %></div>
+
+  <div>
+    <%= f.label :information, "説明" %><br>
+    <%= f.text_area :information, rows: 6 %>
+  </div>
+
+  <%= f.submit "追加する" %>
+<% end %>
+
+<p><%= link_to "一覧へ戻る", admin_hotels_path %></p>
