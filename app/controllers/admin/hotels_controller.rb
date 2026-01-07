@@ -34,6 +34,12 @@ class Admin::HotelsController < Admin::ApplicationController
     end
   end
 
+  def destroy
+    hotel = Hotel.find(params[:id])
+    hotel.destroy
+    redirect_to admin_hotels_path, notice: "ホテルを削除しました"
+  end
+
   private
 
   def set_hotel

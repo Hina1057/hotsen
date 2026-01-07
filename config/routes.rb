@@ -54,7 +54,7 @@ Rails.application.routes.draw do
     resources :admins, only: [:index, :new, :create, :edit, :update, :destroy]
 
     # ホテル管理（一覧・詳細）
-    resources :hotels, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :hotels, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       resources :rooms, only: [:new, :create, :edit, :update, :destroy]
     end
 

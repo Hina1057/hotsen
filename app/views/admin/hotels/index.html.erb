@@ -21,6 +21,10 @@
         <td><%= hotel.phone_number %></td>
         <td>
           <%= link_to "詳細", admin_hotel_path(hotel) %>
+          <%= button_to "削除",
+            admin_hotel_path(hotel),
+            method: :delete,
+            form: { onsubmit: "return confirm('削除します。よろしいですか？');" } %>
         </td>
       </tr>
     <% end %>
