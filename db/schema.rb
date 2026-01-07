@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_26_132540) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_07_131247) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_26_132540) do
     t.string "room_photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hotel_id", "room_type"], name: "index_rooms_on_hotel_id_and_room_type", unique: true
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 

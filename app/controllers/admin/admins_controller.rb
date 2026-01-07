@@ -31,17 +31,27 @@ class Admin::AdminsController < Admin::ApplicationController
   end
 
   def destroy
+    # 管理者が1人しかいない場合は削除不可
     if Admin.count <= 1
-      redirect_to admin_admins_path, alert: "管理者が1人になるため削除できません"
+      redirect_to admin_admins_path, alert: "管理者が1人しかいないため削除できません"
       return
     end
-
-    if @admin.id == current_admin.id
-      redirect_to admin_admins_path, alert: "自分自身は削除できません"
+  
+    admin = Admin.find(params[:id])
+  
+    # 自分自身を削除する場合
+    if admin.id == current_admin.id
+      admin.destroy
+  
+      # セッションをクリア（ここ重要）
+      reset_session
+  
+      redirect_to new_admin_session_path, notice: "アカウントを削除しました"
       return
     end
-
-    @admin.destroy
+  
+    # 他の管理者を削除する場合
+    admin.destroy
     redirect_to admin_admins_path, notice: "管理者を削除しました"
   end
 
