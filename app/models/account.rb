@@ -7,6 +7,7 @@ class Account < ApplicationRecord
   
     validates :name, presence: true
     validates :email, presence: true, uniqueness: true
+    before_validation { self.email = email.to_s.strip.downcase }
     validates :address, presence: true
     validates :birthday, presence: true
     validates :sex, presence: true

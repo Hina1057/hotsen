@@ -4,10 +4,10 @@
   <p><%= flash[:alert] %></p>
 <% end %>
 
-<%= form_with url: session_path, method: :post do |f| %>
+<%= form_with url: session_path, method: :post, local: true do %>
   <div>
-    <label>アカウント名</label><br>
-    <%= text_field_tag :name %>
+    <label>メールアドレス</label><br>
+    <%= email_field_tag :email %>
   </div>
 
   <div>
@@ -15,7 +15,7 @@
     <%= password_field_tag :password %>
   </div>
 
-  <%= f.submit "ログイン" %>
+  <%= submit_tag "ログイン" %>
 <% end %>
 
 <p><%= link_to "新規会員登録", new_account_path %></p>
