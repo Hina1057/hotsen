@@ -5,9 +5,14 @@ class HotelsController < ApplicationController
     @stay_count = (params[:stay_count].presence || 1).to_i
     @guest_count = (params[:guest_count].presence || 1).to_i
 
+    # 設備条件（チェックされたものだけAND条件で絞り込み）
+    facility_keys = %w[
+      wifi large_bath openair_bath sauna bedrock_bath barrier_free smoking_area
+    ]
+    @facilities = facility_keys.select { |k| params[k].present? }
+
     # 入力チェック（UC3）
     errors = []
-
     errors << "エリアを選択してください" if @area.blank?
     errors << "チェックイン日を入力してください" if @check_in_on.blank?
 
@@ -30,10 +35,13 @@ class HotelsController < ApplicationController
       render "top/index", status: :unprocessable_entity and return
     end
 
-    # 検索（まずはエリア一致でOK。LIKEにしたいなら残してもいい）
+    # 検索：エリア + 設備（AND）
     scope = Hotel.where(area: @area)
-    @hotels = scope.order(:id)
+    @facilities.each do |key|
+      scope = scope.where(key => true)
+    end
 
+    @hotels = scope.order(:id)
     @searched = true
   end
 

@@ -25,6 +25,16 @@
     <label>人数</label>
     <%= number_field_tag :guest_count, (params[:guest_count] || 1), min: 1 %>
   </div>
+  
+  <h3>設備条件</h3>
+
+<div><%= check_box_tag :wifi, "1", params[:wifi].present? %> Wi-Fi</div>
+<div><%= check_box_tag :large_bath, "1", params[:large_bath].present? %> 大浴場</div>
+<div><%= check_box_tag :openair_bath, "1", params[:openair_bath].present? %> 露天風呂</div>
+<div><%= check_box_tag :sauna, "1", params[:sauna].present? %> サウナ</div>
+<div><%= check_box_tag :bedrock_bath, "1", params[:bedrock_bath].present? %> 岩盤浴</div>
+<div><%= check_box_tag :barrier_free, "1", params[:barrier_free].present? %> バリアフリー</div>
+<div><%= check_box_tag :smoking_area, "1", params[:smoking_area].present? %> 喫煙所</div>
 
   <%= submit_tag "検索する" %>
 <% end %>
