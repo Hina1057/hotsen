@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
   before_action :set_hotel, only: [:new, :confirm, :create]
 
   def new
-    @rooms = @hotel.rooms.order(:id)
+    @rooms = @hotel.rooms.where("room_stock > 0").order(:id)
     @reservation = Reservation.new(
       check_in_on: params[:check_in_on],
       stay_count: (params[:stay_count].presence || 1),
@@ -31,7 +31,7 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @rooms = @hotel.rooms.order(:id)
+    @rooms = @hotel.rooms.where("room_stock > 0").order(:id)
     @reservation = current_account.reservations.new(reservation_params)
     @reservation.hotel_id = @hotel.id
 
