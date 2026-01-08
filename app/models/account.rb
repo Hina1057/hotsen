@@ -11,5 +11,19 @@ class Account < ApplicationRecord
     validates :birthday, presence: true
     validates :sex, presence: true
     validates :phone_number, presence: true
+    validate :birthday_cannot_be_in_the_future
+    validates :password,
+          length: { minimum: 5, maximum: 30 },
+          allow_blank: true
+
+  private
+
+  def birthday_cannot_be_in_the_future
+    return if birthday.blank?
+
+    if birthday > Date.today
+      errors.add(:birthday, "は未来の日付を指定できません")
+    end
   end
+end
   
