@@ -8,7 +8,12 @@
 <%= form_with url: hotels_path, method: :get do %>
   <div>
     <label>エリア</label>
-    <%= text_field_tag :area, params[:area] %>
+    <%= select_tag :area,
+      options_for_select(
+        [["選択してください", ""]] + Hotel::AREAS.map { |a| [a, a] },
+        params[:area]
+      )
+%>
   </div>
 
   <div>
@@ -25,7 +30,7 @@
     <label>人数</label>
     <%= number_field_tag :guest_count, (params[:guest_count] || 1), min: 1 %>
   </div>
-  
+
   <h3>設備条件</h3>
 
 <div><%= check_box_tag :wifi, "1", params[:wifi].present? %> Wi-Fi</div>

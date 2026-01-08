@@ -11,7 +11,7 @@
 <%= form_with model: [:admin, @hotel], local: true do |f| %>
   <div>
     <%= f.label :name, "ホテル名" %><br>
-    <%= f.text_field :name %>
+    <%= f.select :area, Hotel::AREAS %>
   </div>
 
   <div>
