@@ -1,4 +1,13 @@
 class Hotel < ApplicationRecord
+    AREAS = [
+        "箱根",
+        "熱海",
+        "草津",
+        "伊香保",
+        "別府",
+        "登別",
+        "道後"
+      ]
 
     before_validation :normalize_phone_number
     has_many :rooms, dependent: :destroy
@@ -10,6 +19,12 @@ class Hotel < ApplicationRecord
     validates :phone_number, presence: true,
     format: { with: /\A[0-9\-]+\z/, message: "は数字とハイフンのみで入力してください" },
     length: { minimum: 10, maximum: 13 }
+    validates :parking_capacity,
+            presence: true,
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: 0
+            }
 
     private
 
@@ -17,5 +32,5 @@ class Hotel < ApplicationRecord
     return if phone_number.blank?
     self.phone_number = phone_number.tr("０-９", "0-9").strip
   end
-  
+
   end

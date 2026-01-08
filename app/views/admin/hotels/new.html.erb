@@ -29,6 +29,11 @@
     <%= f.text_field :phone_number %>
   </div>
 
+  <div>
+    <%= f.label :parking_capacity, "駐車可能台数" %><br>
+    <%= f.number_field :parking_capacity, min: 0 %>
+  </div>
+
   <hr>
 
   <div><%= f.check_box :wifi %> <%= f.label :wifi, "Wi-Fi" %></div>
