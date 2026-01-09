@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>Hotsen</title>
@@ -14,38 +15,51 @@
     <% is_admin = controller_path.start_with?("admin/") %>
     <% logo_path = is_admin ? admin_root_path : root_path %>
 
-    <header style="padding: 10px; border-bottom: 1px solid #ccc; display:flex; align-items:center; gap:16px;">
-      <%= link_to logo_path, style: "text-decoration: none; display: flex; align-items: center; gap:10px;" do %>
-        <%= image_tag "logo.png", alt: "アプリロゴ", style: "height: 40px;" %>
-        <span style="font-size: 20px; font-weight: bold; color: #333;">
-          HotSen
-        </span>
-      <% end %>
+    <% is_admin = controller_path.start_with?("admin/") %>
+<% logo_path = is_admin ? admin_root_path : root_path %>
 
-      <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
-        <% if is_admin %>
-          <% if admin_logged_in? %>
-            <%= button_to "管理者ログアウト",
-                  admin_session_path,
-                  method: :delete,
-                  form: { data: { turbo: false } } %>
-          <% else %>
-            <%= link_to "管理者ログイン", new_admin_session_path %>
-          <% end %>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <%= link_to logo_path, class: "brand" do %>
+      <%= image_tag "logo.png", alt: "HotSen", loading: "lazy" %>
+      <strong>HotSen</strong>
+    <% end %>
+
+    <div class="header-actions">
+      <% if is_admin %>
+        <% if admin_logged_in? %>
+          <%= button_to "管理者ログアウト",
+                admin_session_path,
+                method: :delete,
+                form: { data: { turbo: false } },
+                class: "btn" %>
         <% else %>
-          <% if logged_in? %>
-            <%= button_to "ログアウト",
-                  session_path,
-                  method: :delete,
-                  form: { data: { turbo: false } } %>
-          <% else %>
-            <%= link_to "ログイン", new_session_path %>
-            <%= link_to "新規会員登録", new_account_path %>
-          <% end %>
+          <%= link_to "管理者ログイン", new_admin_session_path, class: "btn" %>
         <% end %>
-      </div>
-    </header>
+      <% else %>
+        <% if logged_in? %>
+          <%= button_to "ログアウト",
+                session_path,
+                method: :delete,
+                form: { data: { turbo: false } },
+                class: "btn" %>
+        <% else %>
+          <%= link_to "ログイン", new_session_path, class: "btn" %>
+          <%= link_to "新規会員登録", new_account_path, class: "btn btn--primary" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <% if flash[:alert].present? %>
+    <div class="flash"><%= flash[:alert] %></div>
+  <% end %>
+  <% if flash[:notice].present? %>
+    <div class="flash"><%= flash[:notice] %></div>
+  <% end %>
 
-    <%= yield %>
+  <%= yield %>
+</div>
   </body>
 </html>

@@ -1,15 +1,205 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+:root{
+    --brand:#003580;        /* booking風の濃い青 */
+    --brand2:#0057b8;
+    --accent:#febb02;       /* booking風の黄 */
+    --bg:#f5f7fb;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --card:#ffffff;
+    --border:#e5e7eb;
+  }
+  
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color:var(--text);
+    background:var(--bg);
+  }
+  
+  a{ color:inherit; }
+  
+  .container{
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  .site-header{
+    background: var(--brand);
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .site-header__inner{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding: 12px 0;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:#fff;
+  }
+  .brand img{ height:34px; width:auto; }
+  .brand strong{ font-size:20px; letter-spacing:0.2px; }
+  
+  .header-actions{
+    margin-left:auto;
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 12px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.35);
+    background: transparent;
+    color:#fff;
+    cursor:pointer;
+    text-decoration:none;
+    font-size:14px;
+  }
+  .btn:hover{ background: rgba(255,255,255,0.08); }
+  .btn--primary{
+    background: var(--accent);
+    color:#111827;
+    border-color: var(--accent);
+    font-weight:700;
+  }
+  .btn--primary:hover{ filter: brightness(0.97); }
+  
+  .flash{
+    margin: 14px 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    color:#9a3412;
+  }
+  
+  .card{
+    background: var(--card);
+    border:1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  
+  .search-card{
+    padding: 14px;
+    border: 3px solid var(--accent);
+    border-radius: 16px;
+    background:#fff;
+    margin: 16px 0;
+  }
+  .search-grid{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr 220px;
+    gap: 10px;
+    align-items:end;
+  }
+  @media (max-width: 960px){
+    .search-grid{ grid-template-columns: 1fr 1fr; }
+  }
+  .form-field label{
+    display:block;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .input, select, textarea{
+    width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#fff;
+    font-size:14px;
+  }
+  .input:focus, select:focus, textarea:focus{
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(147,197,253,0.35);
+  }
+  .facility-row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top: 10px;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 10px;
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius: 999px;
+    font-size:13px;
+    color:var(--text);
+  }
+  .pill input{ transform: translateY(1px); }
+  
+  .list{
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+    margin: 14px 0 28px;
+  }
+  
+  .hotel-card{
+    display:grid;
+    grid-template-columns: 220px 1fr 220px;
+    gap: 12px;
+    padding: 12px;
+  }
+  @media (max-width: 960px){
+    .hotel-card{ grid-template-columns: 1fr; }
+  }
+  .hotel-photo{
+    border-radius:12px;
+    background:#dbeafe;
+    min-height: 140px;
+  }
+  .hotel-main h3{
+    margin: 2px 0 6px;
+    font-size:18px;
+  }
+  .hotel-sub{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom: 10px;
+  }
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tag{
+    font-size:12px;
+    padding:6px 8px;
+    border-radius: 999px;
+    background:#eff6ff;
+    color:#1d4ed8;
+    border: 1px solid #dbeafe;
+  }
+  .hotel-side{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    justify-content:space-between;
+  }
+  .price{
+    font-size:20px;
+    font-weight:800;
+  }
+  .price small{
+    display:block;
+    font-size:12px;
+    color:var(--muted);
+    font-weight:600;
+  }
