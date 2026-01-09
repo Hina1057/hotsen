@@ -1,26 +1,46 @@
 <h1>ホテル一覧</h1>
 
-<p>
-  検索条件：
-  エリア「<%= @area.presence || "未指定" %>」 /
-  チェックイン日「<%= @check_in_on.presence || "未指定" %>」 /
-  宿泊数「<%= @stay_count.presence || "未指定" %>」 /
-  人数「<%= @guest_count.presence || "未指定" %>」
-</p>
-
-<hr>
-
-<% if @hotels.any? %>
-  <ul>
-    <% @hotels.each do |hotel| %>
-      <li>
-        <%= link_to hotel.name, hotel_path(hotel, request.query_parameters) %>
-        （<%= hotel.area %> / <%= hotel.address %>）
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>該当するホテルがありません。</p>
+<% if @searched && @hotels.empty? %>
+  <p>該当するホテルは見当たりません</p>
 <% end %>
+
+<div class="hotel-list">
+  <% @hotels.each do |hotel| %>
+    <div class="hotel-card">
+      <div class="hotel-photo">
+        <!-- 画像があるなら後でここに表示 -->
+      </div>
+
+      <div class="hotel-main">
+        <h3>
+          <%= link_to hotel.name, hotel_path(hotel, request.query_parameters) %>
+        </h3>
+
+        <div class="hotel-sub">
+          <%= hotel.area %> ・ <%= hotel.address %>
+        </div>
+
+        <div class="tags">
+          <% if hotel.wifi %><span class="tag">Wi-Fi</span><% end %>
+          <% if hotel.large_bath %><span class="tag">大浴場</span><% end %>
+          <% if hotel.openair_bath %><span class="tag">露天風呂</span><% end %>
+          <% if hotel.sauna %><span class="tag">サウナ</span><% end %>
+          <% if hotel.barrier_free %><span class="tag">バリアフリー</span><% end %>
+        </div>
+      </div>
+
+      <div class="hotel-side">
+        <div class="price">
+          <small>1泊あたり目安</small>
+          <%= hotel.rooms.minimum(:room_price) || "-" %>円
+        </div>
+
+        <%= link_to "詳細を見る",
+              hotel_path(hotel, request.query_parameters),
+              class: "btn-lite" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <p><%= link_to "トップへ戻る", root_path %></p>

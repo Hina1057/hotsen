@@ -1,79 +1,84 @@
-<h1>トップ</h1>
-<% if flash[:alert].present? %>
-  <p><%= flash[:alert] %></p>
-<% end %>
-<hr>
-<div class="search-card">
-<h2>検索</h2>
-<%= form_with url: hotels_path, method: :get do %>
-  <div>
-    <label>エリア</label>
-    <%= select_tag :area,
-      options_for_select(
-        [["選択してください", ""]] + Hotel::AREAS.map { |a| [a, a] },
-        params[:area]
-      )
-%>
+<div class="hero">
+  <div class="container">
+    <h1>温泉ホテルを検索</h1>
+    <p>エリア・日付・人数・予算・設備条件から、あなたに合うホテルを探せます。</p>
   </div>
-
-  <div>
-    <label>チェックイン日</label>
-    <%= date_field_tag :check_in_on, params[:check_in_on] , class: "input"%>
-  </div>
-
-  <div>
-    <label>宿泊数</label>
-    <%= number_field_tag :stay_count, (params[:stay_count] || 1), min: 1, class: "input" %>
-  </div>
-
-  <div>
-    <label>人数</label>
-    <%= number_field_tag :guest_count, (params[:guest_count] || 1), min: 1, class: "input" %>
-  </div>
-
-  <div>
-    <label>予算（1泊あたり上限）</label>
-    <%= number_field_tag :budget, params[:budget], min: 0, class: "input" %>
-  </div>
-
-  <h3>設備条件</h3>
-<div><%= check_box_tag :wifi, "1", params[:wifi].present? %> Wi-Fi</div>
-<div><%= check_box_tag :large_bath, "1", params[:large_bath].present? %> 大浴場</div>
-<div><%= check_box_tag :openair_bath, "1", params[:openair_bath].present? %> 露天風呂</div>
-<div><%= check_box_tag :sauna, "1", params[:sauna].present? %> サウナ</div>
-<div><%= check_box_tag :bedrock_bath, "1", params[:bedrock_bath].present? %> 岩盤浴</div>
-<div><%= check_box_tag :barrier_free, "1", params[:barrier_free].present? %> バリアフリー</div>
-<div><%= check_box_tag :smoking_area, "1", params[:smoking_area].present? %> 喫煙所</div>
-  <div><%= submit_tag "検索する" %></div>
-<% end %>
-
 </div>
 
-<p><%= link_to "FAQ", faq_path %></p>
-
-
-
-<% if logged_in? %>
-<hr>
-<h2>アカウント</h2>
-  <p>ログイン中：<%= current_account.name %></p>
-  <p><%= link_to "マイページ", account_path(current_account) %></p>
+<% if flash[:alert].present? %>
+  <div class="container">
+    <div class="flash"><%= flash[:alert] %></div>
+  </div>
 <% end %>
 
+<div class="container">
+  <div class="search-card">
+    <h2 style="margin:0 0 10px;">検索</h2>
 
-<hr>
+    <%= form_with url: hotels_path, method: :get, local: true do %>
+      <div class="search-grid">
+        <div class="form-field">
+          <label>エリア</label>
+          <%= select_tag :area,
+                options_for_select([["選択してください",""]] + Hotel::AREAS.map { |a| [a, a] }, params[:area]),
+                class: "input" %>
+        </div>
 
-<h2>サイトからのお知らせ</h2>
-<% if @informations.any? %>
-  <ul>
-    <% @informations.each do |info| %>
-      <li>
-        <%= link_to info.title, information_path(info) %>
-        （<%= info.created_at.to_date %>）
-      </li>
+        <div class="form-field">
+          <label>チェックイン日</label>
+          <%= date_field_tag :check_in_on, params[:check_in_on], class: "input" %>
+        </div>
+
+        <div class="form-field">
+          <label>宿泊数</label>
+          <%= number_field_tag :stay_count, (params[:stay_count] || 1), min: 1, class: "input" %>
+        </div>
+
+        <div class="form-field">
+          <label>人数</label>
+          <%= number_field_tag :guest_count, (params[:guest_count] || 1), min: 1, class: "input" %>
+        </div>
+
+        <div class="form-field">
+          <label>予算（1泊あたり上限）</label>
+          <%= number_field_tag :budget, params[:budget], min: 0, class: "input" %>
+        </div>
+      </div>
+
+      <div class="section-title">設備条件</div>
+      <div class="facility-row">
+        <label class="pill"><%= check_box_tag :wifi, "1", params[:wifi].present? %> Wi-Fi</label>
+        <label class="pill"><%= check_box_tag :large_bath, "1", params[:large_bath].present? %> 大浴場</label>
+        <label class="pill"><%= check_box_tag :openair_bath, "1", params[:openair_bath].present? %> 露天風呂</label>
+        <label class="pill"><%= check_box_tag :sauna, "1", params[:sauna].present? %> サウナ</label>
+        <label class="pill"><%= check_box_tag :bedrock_bath, "1", params[:bedrock_bath].present? %> 岩盤浴</label>
+        <label class="pill"><%= check_box_tag :barrier_free, "1", params[:barrier_free].present? %> バリアフリー</label>
+        <label class="pill"><%= check_box_tag :smoking_area, "1", params[:smoking_area].present? %> 喫煙所</label>
+      </div>
+
+      <div style="margin-top:12px;">
+        <%= submit_tag "検索する", class: "btn btn--primary" %>
+        <span class="muted" style="margin-left:10px;">条件を入れてホテル一覧へ</span>
+      </div>
     <% end %>
-  </ul>
-  <%= link_to "お知らせ一覧へ", informations_path %>
-<% else %>
-  <p>お知らせはまだありません。</p>
-<% end %>
+  </div>
+
+  <div class="section-title">サイトからのお知らせ</div>
+  <div class="card notice-card">
+    <% if @informations.present? && @informations.any? %>
+      <ul class="notice-list">
+        <% @informations.each do |info| %>
+          <li>
+            <%= link_to info.title, information_path(info) %>
+            <span class="muted">（<%= info.created_at.to_date %>）</span>
+          </li>
+        <% end %>
+      </ul>
+      <div style="margin-top:10px;">
+        <%= link_to "お知らせ一覧へ", informations_path, class: "btn-lite" %>
+      </div>
+    <% else %>
+      <p class="muted">お知らせはまだありません。</p>
+    <% end %>
+  </div>
+</div>

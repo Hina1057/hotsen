@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-
 <html>
   <head>
-    <title>Hotsen</title>
+    <title>HotSen</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", defer: true %>
   </head>
 
@@ -15,51 +15,61 @@
     <% is_admin = controller_path.start_with?("admin/") %>
     <% logo_path = is_admin ? admin_root_path : root_path %>
 
-    <% is_admin = controller_path.start_with?("admin/") %>
-<% logo_path = is_admin ? admin_root_path : root_path %>
-
-<header class="site-header">
-  <div class="container site-header__inner">
-    <%= link_to logo_path, class: "brand" do %>
-      <%= image_tag "logo.png", alt: "HotSen", loading: "lazy" %>
-      <strong>HotSen</strong>
-    <% end %>
-
-    <div class="header-actions">
-      <% if is_admin %>
-        <% if admin_logged_in? %>
-          <%= button_to "管理者ログアウト",
-                admin_session_path,
-                method: :delete,
-                form: { data: { turbo: false } },
-                class: "btn" %>
-        <% else %>
-          <%= link_to "管理者ログイン", new_admin_session_path, class: "btn" %>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <%= link_to logo_path, class: "brand" do %>
+          <%= image_tag "logo.png", alt: "HotSen", loading: "lazy" %>
+          <strong>HotSen</strong>
         <% end %>
-      <% else %>
-        <% if logged_in? %>
-          <%= button_to "ログアウト",
-                session_path,
-                method: :delete,
-                form: { data: { turbo: false } },
-                class: "btn" %>
-        <% else %>
-          <%= link_to "ログイン", new_session_path, class: "btn" %>
-          <%= link_to "新規会員登録", new_account_path, class: "btn btn--primary" %>
-        <% end %>
+
+        <nav class="header-nav">
+          <% unless is_admin %>
+            <%= link_to "FAQ", faq_path, class: "nav-link" %>
+          <% end %>
+        </nav>
+
+        <div class="header-actions">
+          <% if is_admin %>
+            <% if admin_logged_in? %>
+              <%= button_to "管理者ログアウト",
+                    admin_session_path,
+                    method: :delete,
+                    form: { data: { turbo: false } },
+                    class: "btn" %>
+            <% else %>
+              <%= link_to "管理者ログイン", new_admin_session_path, class: "btn" %>
+            <% end %>
+          <% else %>
+            <% if logged_in? %>
+            <%= link_to "マイページ",
+              account_path(current_account),
+              class: "btn" %>
+              <%= button_to "ログアウト",
+                    session_path,
+                    method: :delete,
+                    form: { data: { turbo: false } },
+                    class: "btn" %>
+            <% else %>
+              <%= link_to "ログイン", new_session_path, class: "btn" %>
+              <%= link_to "新規会員登録", new_account_path, class: "btn btn--primary" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <% if flash[:alert].present? %>
+        <div class="flash"><%= flash[:alert] %></div>
+      <% end %>
+
+      <% if flash[:notice].present? %>
+        <div class="flash"><%= flash[:notice] %></div>
       <% end %>
     </div>
-  </div>
-</header>
-<div class="container">
-  <% if flash[:alert].present? %>
-    <div class="flash"><%= flash[:alert] %></div>
-  <% end %>
-  <% if flash[:notice].present? %>
-    <div class="flash"><%= flash[:notice] %></div>
-  <% end %>
 
-  <%= yield %>
-</div>
+    <main class="container">
+      <%= yield %>
+    </main>
   </body>
 </html>

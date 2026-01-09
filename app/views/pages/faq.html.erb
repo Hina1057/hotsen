@@ -1,9 +1,36 @@
-<h1>よくある質問</h1>
+<div class="faq-wrap">
+  <div class="faq-card">
+    <h1 class="faq-title">よくある質問</h1>
+    <p class="faq-sub">予約やキャンセルなど、よくある内容をまとめています。</p>
 
-<h2>Q. 予約はいつ確定しますか？</h2>
-<p>確認画面で「予約を確定する」を押した時点で確定します。</p>
+    <div class="faq-item">
+      <p class="faq-q"><span class="badge-q">Q</span>予約はいつ確定しますか？</p>
+      <p class="faq-a"><span class="badge-a">A</span>予約内容の確認画面で「予約を確定する」を押した時点で確定します。</p>
+    </div>
 
-<h2>Q. 予約はキャンセルできますか？</h2>
-<p>マイページの予約一覧からキャンセルできます。</p>
+    <div class="faq-item">
+      <p class="faq-q"><span class="badge-q">Q</span>予約のキャンセルはできますか？</p>
+      <p class="faq-a"><span class="badge-a">A</span>マイページの予約一覧からキャンセルできます。管理者側でも予約削除が可能です。</p>
+    </div>
 
-<p><%= link_to "トップへ戻る", root_path %></p>
+    <div class="faq-item">
+      <p class="faq-q"><span class="badge-q">Q</span>朝食や夕食を付けると料金は変わりますか？</p>
+      <p class="faq-a"><span class="badge-a">A</span>朝食は＋1,000円/泊、夕食は＋2,000円/泊が加算されます（予約画面に表示されます）。</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q"><span class="badge-q">Q</span>満室の部屋は予約できますか？</p>
+      <p class="faq-a"><span class="badge-a">A</span>在庫がない部屋は選択できない仕様です。加えて予約確定時にも在庫チェックを行います。</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q"><span class="badge-q">Q</span>会員登録後すぐにログイン状態になりますか？</p>
+      <p class="faq-a"><span class="badge-a">A</span>登録後は自動ログインせず、ログイン画面へ移動して改めてログインする方式です。</p>
+    </div>
+
+    <div class="faq-actions">
+      <%= link_to "トップへ戻る", root_path, class: "btn-lite" %>
+      <%= link_to "ホテル検索へ", root_path, class: "btn-lite" %>
+    </div>
+  </div>
+</div>

@@ -1,60 +1,76 @@
-<h1>会員情報の変更</h1>
+<div class="edit-wrap">
+  <div class="edit-header">
+    <div>
+      <h1 class="edit-title">会員情報の変更</h1>
+      <p class="edit-sub">必要な項目だけ変更して更新できます。</p>
+    </div>
+    <%= link_to "マイページへ戻る", account_path(@account), class: "btn-lite" %>
+  </div>
 
-<% if @account.errors.any? %>
-  <ul>
-    <% @account.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+  <div class="edit-card">
+    <% if @account.errors.any? %>
+      <div class="errors-box">
+        <ul>
+          <% @account.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_with model: @account, url: account_path(@account), method: :patch, local: true do |f| %>
+    <%= form_with model: @account, local: true do |f| %>
+      <div class="grid-2">
+        <div class="form-field">
+          <%= f.label :name, "名前" %>
+          <%= f.text_field :name, class: "input" %>
+        </div>
 
-  <div>
-    <%= f.label :name, "名前" %><br>
-    <%= f.text_field :name %>
+        <div class="form-field">
+          <%= f.label :email, "メールアドレス" %>
+          <%= f.email_field :email, class: "input" %>
+        </div>
+
+        <div class="form-field">
+          <%= f.label :address, "住所" %>
+          <%= f.text_field :address, class: "input" %>
+        </div>
+
+        <div class="form-field">
+          <%= f.label :phone_number, "電話番号" %>
+          <%= f.text_field :phone_number, class: "input" %>
+        </div>
+
+        <div class="form-field">
+          <%= f.label :birthday, "誕生日" %>
+          <%= f.date_field :birthday, class: "input", max: Date.today %>
+        </div>
+
+        <div class="form-field">
+          <%= f.label :sex, "性別" %>
+          <%= f.select :sex, Account.sexes.keys.map { |k| [k, k] }, {}, class: "input" %>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <p class="muted">パスワードを変更する場合のみ入力</p>
+
+      <div class="grid-2">
+        <div class="form-field">
+          <%= f.label :password, "新しいパスワード" %>
+          <%= f.password_field :password, class: "input", minlength: 5, maxlength: 30 %>
+        </div>
+
+        <div class="form-field">
+          <%= f.label :password_confirmation, "新しいパスワード（確認）" %>
+          <%= f.password_field :password_confirmation, class: "input", minlength: 5, maxlength: 30 %>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "更新する", class: "btn btn--primary" %>
+        <%= link_to "キャンセル", account_path(@account), class: "btn-lite" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= f.label :email, "メール" %><br>
-    <%= f.email_field :email %>
-  </div>
-
-  <div>
-    <%= f.label :address, "住所" %><br>
-    <%= f.text_field :address %>
-  </div>
-
-  <div>
-    <%= f.label :birthday, "生年月日" %><br>
-    <%= f.date_field :birthday %>
-  </div>
-
-  <div>
-    <%= f.label :sex, "性別" %><br>
-    <%= f.select :sex, Account.sexes.keys.map { |k| [k, k] } %>
-  </div>
-
-  <div>
-    <%= f.label :phone_number, "電話番号" %><br>
-    <%= f.text_field :phone_number %>
-  </div>
-
-  <hr>
-
-  <p>パスワードを変更する場合のみ入力</p>
-
-  <div>
-    <%= f.label :password, "新しいパスワード" %><br>
-    <%= f.password_field :password %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation, "新しいパスワード（確認）" %><br>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <%= f.submit "更新する" %>
-<% end %>
-
-<p><%= link_to "マイページへ戻る", account_path(@account) %></p>
+</div>

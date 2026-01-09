@@ -1,11 +1,59 @@
-<h1>予約完了</h1>
+<div class="done-wrap">
+  <div class="done-card">
+    <h1 class="done-title">予約が完了しました</h1>
+    <p class="done-sub">ご予約ありがとうございます。内容をご確認ください。</p>
 
-<p>ホテル：<%= @reservation.hotel.name %></p>
-<p>部屋：<%= @reservation.room_id %></p>
-<p>チェックイン：<%= @reservation.check_in_on %></p>
-<p>宿泊数：<%= @reservation.stay_count %></p>
-<p>人数：<%= @reservation.guest_count %></p>
+    <div class="done-grid">
+      <div class="kvbox">
+        <div class="k">ホテル</div>
+        <div class="v"><%= @reservation.hotel.name %></div>
+      </div>
 
-<p>
-  <%= link_to "トップページへ戻る", root_path %>
-</p>
+      <div class="kvbox">
+        <div class="k">部屋タイプ</div>
+        <div class="v"><%= @reservation.room.room_type %></div>
+      </div>
+
+      <div class="kvbox">
+        <div class="k">チェックイン日</div>
+        <div class="v"><%= @reservation.check_in_on %></div>
+      </div>
+
+      <div class="kvbox">
+        <div class="k">宿泊数</div>
+        <div class="v"><%= @reservation.stay_count %> 泊</div>
+      </div>
+
+      <div class="kvbox">
+        <div class="k">人数</div>
+        <div class="v"><%= @reservation.guest_count %> 名</div>
+      </div>
+
+      <div class="kvbox">
+        <div class="k">支払い方法</div>
+        <div class="v"><%= @reservation.pay_method_local? ? "現地払い" : "クレジット" %></div>
+      </div>
+
+      <div class="kvbox">
+        <div class="k">朝食</div>
+        <div class="v"><%= @reservation.breakfast ? "あり" : "なし" %></div>
+      </div>
+
+      <div class="kvbox">
+        <div class="k">夕食</div>
+        <div class="v"><%= @reservation.dinner ? "あり" : "なし" %></div>
+      </div>
+
+      <div class="kvbox" style="grid-column: 1 / -1;">
+        <div class="k">合計金額</div>
+        <div class="v"><%= @reservation.total_price %> 円</div>
+      </div>
+    </div>
+
+    <div class="done-actions">
+      <%= link_to "予約一覧へ", reservations_account_path(current_account), class: "btn-lite" %>
+      <%= link_to "トップへ戻る", root_path, class: "btn-lite" %>
+      <%= link_to "ホテル詳細へ", hotel_path(@reservation.hotel), class: "btn-lite" %>
+    </div>
+  </div>
+</div>

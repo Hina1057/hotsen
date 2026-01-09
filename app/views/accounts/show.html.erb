@@ -1,38 +1,79 @@
-<h1>マイページ</h1>
-<% if flash[:alert].present? %>
-  <p><%= flash[:alert] %></p>
-<% end %>
+<div class="mypage-wrap">
+  <h1 class="mypage-title">マイページ</h1>
 
-<% if flash[:notice].present? %>
-  <p><%= flash[:notice] %></p>
-<% end %>
+  <% if flash[:alert].present? %>
+    <div class="flash"><%= flash[:alert] %></div>
+  <% end %>
 
-<p>名前：<%= @account.name %></p>
-<p>メール：<%= @account.email %></p>
-<p>住所：<%= @account.address %></p>
-<p>誕生日：<%= @account.birthday %></p>
-<p>電話番号：<%= @account.phone_number %></p>
+  <% if flash[:notice].present? %>
+    <div class="flash"><%= flash[:notice] %></div>
+  <% end %>
 
-<p>
-  <%= link_to "会員情報を変更", edit_account_path(@account) %>
-</p>
+  <div class="mypage-grid">
+    <div class="mypage-card">
+      <h2>会員情報</h2>
 
-<p>
-  <%= link_to "現在の予約情報", reservations_account_path(@account) %>
-</p>
+      <div class="kv-list">
+        <div class="kv-item">
+          <div class="k">名前</div>
+          <div class="v"><%= @account.name %></div>
+        </div>
 
-<p>
-  <%= button_to "ログアウト", session_path, method: :delete %>
-</p>
+        <div class="kv-item">
+          <div class="k">メール</div>
+          <div class="v"><%= @account.email %></div>
+        </div>
 
-<% if current_account.id == @account.id %>
-  <%= button_to "退会（アカウント削除）",
-        account_path(@account),
-        method: :delete,
-        form: { data: { turbo: false } },
-        data: { turbo_confirm: "本当に退会しますか？（予約がある場合は退会できません）" } %>
-<% end %>
+        <div class="kv-item">
+          <div class="k">住所</div>
+          <div class="v"><%= @account.address %></div>
+        </div>
 
-<p>
-  <%= link_to "トップへ戻る", root_path %>
-</p>
+        <div class="kv-item">
+          <div class="k">誕生日</div>
+          <div class="v"><%= @account.birthday %></div>
+        </div>
+
+        <div class="kv-item">
+          <div class="k">電話番号</div>
+          <div class="v"><%= @account.phone_number %></div>
+        </div>
+      </div>
+
+      <div class="mypage-actions">
+        <%= link_to "会員情報を変更", edit_account_path(@account), class: "btn-lite" %>
+        <%= link_to "現在の予約情報", reservations_account_path(@account), class: "btn-lite" %>
+      </div>
+
+      <p class="help-muted">
+        退会は「予約がない場合のみ」可能です。
+      </p>
+    </div>
+
+    <div class="mypage-card">
+      <h2>アカウント操作</h2>
+
+      <div class="mypage-actions">
+        <%= button_to "ログアウト",
+              session_path,
+              method: :delete,
+              form: { data: { turbo: false } },
+              class: "btn-lite" %>
+
+        <% if current_account.id == @account.id %>
+          <%= button_to "退会（アカウント削除）",
+                account_path(@account),
+                method: :delete,
+                form: { data: { turbo: false }, onsubmit: "return confirm('本当に退会しますか？（予約がある場合は退会できません）');" },
+                class: "btn-danger" %>
+        <% end %>
+
+        <%= link_to "トップへ戻る", root_path, class: "btn-lite" %>
+      </div>
+
+      <p class="help-muted">
+        退会を押しても何も変わらない時は、上部のメッセージを確認してください。
+      </p>
+    </div>
+  </div>
+</div>

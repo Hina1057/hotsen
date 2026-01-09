@@ -1,45 +1,66 @@
-<h1><%= @hotel.name %></h1>
+<div class="detail-grid">
+  <div class="detail-card">
+    <h1 class="detail-title"><%= @hotel.name %></h1>
 
-<p>エリア：<%= @hotel.area %></p>
-<p>住所：<%= @hotel.address %></p>
-<p>電話：<%= @hotel.phone_number %></p>
-<p>駐車可能台数：<%= @hotel.parking_capacity %></p>
+    <p class="kv">エリア：<%= @hotel.area %></p>
+    <p class="kv">住所：<%= @hotel.address %></p>
+    <p class="kv">電話：<%= @hotel.phone_number %></p>
+    <p class="kv">駐車可能台数：<%= @hotel.parking_capacity %></p>
 
-<hr>
-<%= link_to "このホテルを予約する", new_hotel_reservation_path(@hotel, request.query_parameters) %>
+    <div class="actions-row">
+      <%= link_to "このホテルを予約する",
+            new_hotel_reservation_path(@hotel, request.query_parameters),
+            class: "btn-lite" %>
 
-<h3>設備・サービス</h3>
+      <%= link_to "一覧へ戻る",
+            hotels_path(request.query_parameters),
+            class: "btn-lite" %>
+    </div>
 
-<ul>
-  <% if @hotel.wifi %><li>Wi-Fi</li><% end %>
-  <% if @hotel.large_bath %><li>大浴場</li><% end %>
-  <% if @hotel.openair_bath %><li>露天風呂</li><% end %>
-  <% if @hotel.sauna %><li>サウナ</li><% end %>
-  <% if @hotel.bedrock_bath %><li>岩盤浴</li><% end %>
-  <% if @hotel.barrier_free %><li>バリアフリー</li><% end %>
-  <% if @hotel.smoking_area %><li>喫煙所</li><% end %>
-</ul>
+    <hr style="border:none;border-top:1px solid #e5e7eb; margin:14px 0;">
 
-<h3>ホテル説明</h3>
+    <h3 style="margin:0 0 8px;">設備・サービス</h3>
 
-<% if @hotel.information.present? %>
-  <p><%= simple_format(@hotel.information) %></p>
-<% end %>
+    <div class="tags">
+      <% if @hotel.wifi %><span class="tag">Wi-Fi</span><% end %>
+      <% if @hotel.large_bath %><span class="tag">大浴場</span><% end %>
+      <% if @hotel.openair_bath %><span class="tag">露天風呂</span><% end %>
+      <% if @hotel.sauna %><span class="tag">サウナ</span><% end %>
+      <% if @hotel.bedrock_bath %><span class="tag">岩盤浴</span><% end %>
+      <% if @hotel.barrier_free %><span class="tag">バリアフリー</span><% end %>
+      <% if @hotel.smoking_area %><span class="tag">喫煙所</span><% end %>
+    </div>
 
-<h2>部屋一覧</h2>
-<% if @rooms.any? %>
-  <ul>
-    <% @rooms.each do |room| %>
-      <li>
-        部屋タイプ：<%= room.room_type %> /
-        定員：<%= room.max_person %> /
-        料金：<%= room.room_price %> /
-        在庫：<%= room.room_stock %>
-      </li>
+    <hr style="border:none;border-top:1px solid #e5e7eb; margin:14px 0;">
+
+    <h3 style="margin:0 0 8px;">ホテル説明</h3>
+    <% if @hotel.information.present? %>
+      <div class="detail-muted"><%= simple_format(@hotel.information) %></div>
+    <% else %>
+      <p class="detail-muted">説明はまだ登録されていません。</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>部屋情報がありません。</p>
-<% end %>
+  </div>
 
-<p><%= link_to "一覧へ戻る", hotels_path(request.query_parameters) %></p>
+  <div class="detail-card">
+    <h2 style="margin:0 0 8px;">部屋一覧</h2>
+
+    <% if @rooms.any? %>
+      <div class="room-list">
+        <% @rooms.each do |room| %>
+          <div class="room-card">
+            <span class="room-badge"><%= room.room_type %></span>
+            <div>
+              <div class="room-meta">
+                定員：<%= room.max_person %> /
+                料金：<%= room.room_price %>円 /
+                在庫：<%= room.room_stock %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="detail-muted">部屋情報がありません。</p>
+    <% end %>
+  </div>
+</div>

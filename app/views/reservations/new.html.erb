@@ -1,60 +1,92 @@
-<h1>予約画面</h1>
-<h2><%= @hotel.name %></h2>
+<div class="resv-wrap">
+  <div class="resv-card">
+    <h1 class="resv-title">予約画面</h1>
+    <p class="help-text"><%= @hotel.name %></p>
 
-<% if flash[:alert].present? %>
-  <p><%= flash[:alert] %></p>
-<% end %>
-
-<% if @reservation.errors.any? %>
-  <ul>
-    <% @reservation.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+    <% if flash[:alert].present? %>
+      <div class="flash"><%= flash[:alert] %></div>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_with model: [@hotel, @reservation],
-              url: confirm_hotel_reservations_path(@hotel),
-              method: :post do |f| %>
+    <% if @reservation.errors.any? %>
+      <div class="flash">
+        <ul style="margin:0; padding-left:18px;">
+          <% @reservation.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div>
-    <%= f.label :room_id, "部屋を選択" %><br>
-    <%= f.collection_select :room_id, @rooms, :id, :label, include_blank: "選択してください" %>
+    <%= form_with model: [@hotel, @reservation],
+                  url: confirm_hotel_reservations_path(@hotel),
+                  method: :post,
+                  local: true do |f| %>
+
+      <div class="resv-row form-field">
+        <label>部屋を選択</label>
+        <%= f.collection_select :room_id, @rooms, :id, :label, include_blank: "選択してください" %>
+      </div>
+
+      <div class="resv-row form-field">
+        <label>チェックイン日</label>
+        <%= f.date_field :check_in_on, class: "input" %>
+      </div>
+
+      <div class="resv-row form-field">
+        <label>宿泊数</label>
+        <%= f.number_field :stay_count, min: 1, class: "input" %>
+      </div>
+
+      <div class="resv-row form-field">
+        <label>人数</label>
+        <%= f.number_field :guest_count, min: 1, class: "input" %>
+      </div>
+
+      <div class="resv-row form-field">
+        <label>支払い方法</label>
+        <%= f.select :pay_method,
+                     [["現地払い", 0], ["クレジット", 1]],
+                     { include_blank: "選択してください" },
+                     class: "input" %>
+      </div>
+
+      <div class="resv-row">
+        <label class="pill">
+          <%= f.check_box :breakfast %>
+          朝食を付ける（＋1,000円 / 泊）
+        </label>
+        <label class="pill">
+          <%= f.check_box :dinner %>
+          夕食を付ける（＋2,000円 / 泊）
+        </label>
+      </div>
+
+      <div class="resv-actions">
+        <%= f.submit "予約内容を確認する", class: "btn-lite" %>
+        <%= link_to "ホテル詳細へ戻る", hotel_path(@hotel, request.query_parameters), class: "btn-lite" %>
+      </div>
+    <% end %>
   </div>
 
-  <div>
-    <%= f.label :check_in_on, "チェックイン日" %><br>
-    <%= f.date_field :check_in_on %>
+  <div class="resv-card">
+    <h2 class="resv-title">予約のヒント</h2>
+    <p class="help-text">
+      部屋料金に加えて、朝食は＋1,000円/泊、夕食は＋2,000円/泊が加算されます。<br>
+      在庫がない部屋は選択できない仕様になっています。
+    </p>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb; margin:12px 0;">
+
+    <h3 style="margin:0 0 8px;">部屋一覧</h3>
+    <% @rooms.each do |r| %>
+      <div class="room-card" style="margin-bottom:10px;">
+        <span class="room-badge"><%= r.room_type %></span>
+        <div class="room-meta">
+          定員：<%= r.max_person %> /
+          料金：<%= r.room_price %>円 /
+          在庫：<%= r.room_stock %>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= f.label :stay_count, "宿泊数" %><br>
-    <%= f.number_field :stay_count, min: 1 %>
-  </div>
-
-  <div>
-    <%= f.label :guest_count, "人数" %><br>
-    <%= f.number_field :guest_count, min: 1 %>
-  </div>
-
-  <div>
-    <%= f.label :pay_method, "支払い方法" %><br>
-    <%= f.select :pay_method,
-                 [["現地払い", 0], ["クレジット", 1]],
-                 include_blank: "選択してください" %>
-  </div>
-
-  <div>
-    <%= f.check_box :breakfast %>
-    <%= f.label :breakfast, "朝食を付ける（＋1,000円 / 泊）" %>
-  </div>
-
-  <div>
-    <%= f.check_box :dinner %>
-    <%= f.label :dinner, "夕食を付ける（＋2,000円 / 泊）" %>
-  </div>
-
-  <%= f.submit "予約内容を確認する" %>
-<% end %>
-
-<p><%= link_to "ホテル詳細へ戻る", hotel_path(@hotel) %></p>
+</div>

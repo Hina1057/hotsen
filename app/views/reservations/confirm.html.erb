@@ -1,33 +1,67 @@
-<h1>予約内容の確認</h1>
-<h2><%= @hotel.name %></h2>
+<div class="resv-wrap">
+  <div class="resv-card">
+    <h1 class="resv-title">予約内容の確認</h1>
+    <p class="help-text"><%= @hotel.name %></p>
 
-<p>部屋: <%= @reservation.room.label %></p>
-<p>チェックイン日: <%= @reservation.check_in_on %></p>
-<p>宿泊数: <%= @reservation.stay_count %></p>
-<p>人数: <%= @reservation.guest_count %></p>
-<p>支払い方法: <%= @reservation.pay_method_local? ? "現地払い" : "クレジット" %></p>
-<p>朝食: <%= @reservation.breakfast ? "あり" : "なし" %></p>
-<p>夕食: <%= @reservation.dinner ? "あり" : "なし" %></p>
-<p>合計金額: <%= @reservation.total_price %>円</p>
+    <div class="room-card" style="margin-top:10px;">
+      <span class="room-badge"><%= @reservation.room.room_type %></span>
+      <div class="room-meta">
+        チェックイン：<%= @reservation.check_in_on %> /
+        宿泊数：<%= @reservation.stay_count %> /
+        人数：<%= @reservation.guest_count %>
+      </div>
+    </div>
 
-<%= form_with model: [@hotel, @reservation],
-              url: hotel_reservations_path(@hotel),
-              method: :post do |f| %>
-  <%= f.hidden_field :room_id %>
-  <%= f.hidden_field :check_in_on %>
-  <%= f.hidden_field :stay_count %>
-  <%= f.hidden_field :guest_count %>
-  <%= f.hidden_field :pay_method %>
-  <%= f.hidden_field :breakfast %>
-  <%= f.hidden_field :dinner %>
+    <div style="margin-top:12px;">
+      <p class="kv">支払い方法：<%= @reservation.pay_method_local? ? "現地払い" : "クレジット" %></p>
+      <p class="kv">朝食：<%= @reservation.breakfast ? "あり（＋1,000円/泊）" : "なし" %></p>
+      <p class="kv">夕食：<%= @reservation.dinner ? "あり（＋2,000円/泊）" : "なし" %></p>
+      <p class="kv"><strong>合計金額：<%= @reservation.total_price %>円</strong></p>
+    </div>
 
-  <%= f.submit "予約を確定する" %>
-<% end %>
+    <%= form_with model: [@hotel, @reservation],
+                  url: hotel_reservations_path(@hotel),
+                  method: :post,
+                  local: true do |f| %>
 
-<p>
-  <%= link_to "戻る", new_hotel_reservation_path(@hotel,
-    check_in_on: @reservation.check_in_on,
-    stay_count: @reservation.stay_count,
-    guest_count: @reservation.guest_count
-  ) %>
-</p>
+      <%= f.hidden_field :room_id %>
+      <%= f.hidden_field :check_in_on %>
+      <%= f.hidden_field :stay_count %>
+      <%= f.hidden_field :guest_count %>
+      <%= f.hidden_field :pay_method %>
+      <%= f.hidden_field :breakfast %>
+      <%= f.hidden_field :dinner %>
+
+      <div class="resv-actions">
+        <%= f.submit "予約を確定する", class: "btn-lite" %>
+
+        <%= link_to "戻る",
+              new_hotel_reservation_path(@hotel, request.query_parameters.merge(
+                check_in_on: @reservation.check_in_on,
+                stay_count: @reservation.stay_count,
+                guest_count: @reservation.guest_count
+              )),
+              class: "btn-lite" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="resv-card">
+    <h2 class="resv-title">料金の内訳</h2>
+
+    <p class="help-text">
+      部屋料金：<%= @reservation.room.room_price %>円 × <%= @reservation.stay_count %>泊
+    </p>
+
+    <% if @reservation.breakfast %>
+      <p class="help-text">朝食：＋1,000円 × <%= @reservation.stay_count %>泊</p>
+    <% end %>
+
+    <% if @reservation.dinner %>
+      <p class="help-text">夕食：＋2,000円 × <%= @reservation.stay_count %>泊</p>
+    <% end %>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb; margin:12px 0;">
+    <p><strong>合計：<%= @reservation.total_price %>円</strong></p>
+  </div>
+</div>

@@ -1,42 +1,67 @@
-<h1>予約一覧</h1>
+<div class="res-list-wrap">
+  <h1 class="res-list-title">現在の予約情報</h1>
 
-<% if @reservations.empty? %>
-  <p>予約はありません</p>
-<% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>ホテル</th>
-        <th>部屋</th>
-        <th>チェックイン</th>
-        <th>宿泊数</th>
-        <th>人数</th>
-        <th>合計</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
+  <% if flash[:alert].present? %>
+    <div class="flash"><%= flash[:alert] %></div>
+  <% end %>
+
+  <% if flash[:notice].present? %>
+    <div class="flash"><%= flash[:notice] %></div>
+  <% end %>
+
+  <% if @reservations.empty? %>
+    <div class="card notice-card">
+      <p class="muted">予約はありません。</p>
+      <div class="mypage-actions">
+        <%= link_to "トップへ戻る", root_path, class: "btn-lite" %>
+        <%= link_to "マイページへ戻る", account_path(current_account), class: "btn-lite" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="res-cards">
       <% @reservations.each do |r| %>
-        <tr>
-          <td><%= r.hotel.name %></td>
-          <td><%= r.room.label %></td>
-          <td><%= r.check_in_on %></td>
-          <td><%= r.stay_count %></td>
-          <td><%= r.guest_count %></td>
-          <td><%= r.total_price %>円</td>
-          <td>
-            <%= link_to "詳細", reservation_path(r) %>
-            |
-            <%= button_to "キャンセル",
-                          cancel_reservation_path(r),
-                          method: :delete,
-                          data: { confirm: "この予約をキャンセルしますか？" } %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+        <div class="res-card">
+          <div>
+            <h3>
+              <%= link_to r.hotel.name, hotel_path(r.hotel), style: "text-decoration:none; color:#111827;" %>
+            </h3>
 
-<p><%= link_to "トップへ戻る", root_path %></p>
-<p><%= link_to "マイページへ戻る", account_path(current_account) %></p>
+            <div class="muted">
+              部屋：<%= r.room.room_type %>
+            </div>
+
+            <div class="res-meta">
+              <span>チェックイン：<%= r.check_in_on %></span>
+              <span>泊数：<%= r.stay_count %></span>
+              <span>人数：<%= r.guest_count %></span>
+              <span>朝食：<%= r.breakfast ? "あり" : "なし" %></span>
+              <span>夕食：<%= r.dinner ? "あり" : "なし" %></span>
+            </div>
+          </div>
+
+          <div class="res-side">
+            <div class="res-price">
+              <small>合計</small>
+              <%= r.total_price %>円
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <%= link_to "詳細", reservation_path(r), class: "btn-lite" %>
+
+              <%= button_to "キャンセル",
+                    cancel_reservation_path(r),
+                    method: :delete,
+                    form: { data: { turbo: false }, onsubmit: "return confirm('この予約をキャンセルしますか？');" },
+                    class: "btn-danger-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mypage-actions" style="margin-top:14px;">
+      <%= link_to "マイページへ戻る", account_path(current_account), class: "btn-lite" %>
+      <%= link_to "トップへ戻る", root_path, class: "btn-lite" %>
+    </div>
+  <% end %>
+</div>
