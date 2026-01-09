@@ -151,7 +151,27 @@ hotels = [
         { room_type: :single, room_price: 7200, room_stock: 3 },
         { room_type: :twin,   room_price: 12500, room_stock: 2 }
       ]
-    }
+    },
+    {
+        name: "横浜1号店",
+        area: "横浜",
+        address: "神奈川県横浜市中区1-1",
+        phone_number: "045-123-4567",
+        parking_capacity: 22,
+        wifi: true,
+        large_bath: true,
+        openair_bath: false,
+        sauna: true,
+        bedrock_bath: false,
+        barrier_free: true,
+        smoking_area: false,
+        information: "みなとみらいエリアへのアクセスが良い温泉ホテルです。",
+        rooms: [
+          { room_type: :single, room_price: 8500, room_stock: 6 },
+          { room_type: :double, room_price: 13000, room_stock: 4 },
+          { room_type: :twin,   room_price: 15500, room_stock: 3 }
+        ]
+      }
   ]
   
   hotels.each do |data|

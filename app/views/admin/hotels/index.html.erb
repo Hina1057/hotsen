@@ -1,4 +1,11 @@
 <h1>ホテル一覧（管理者）</h1>
+<% if flash[:alert].present? %>
+  <p><%= flash[:alert] %></p>
+<% end %>
+
+<% if flash[:notice].present? %>
+  <p><%= flash[:notice] %></p>
+<% end %>
 <p><%= link_to "ホテルを追加", new_admin_hotel_path %></p>
 
 

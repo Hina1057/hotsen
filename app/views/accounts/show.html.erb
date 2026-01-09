@@ -1,4 +1,11 @@
 <h1>マイページ</h1>
+<% if flash[:alert].present? %>
+  <p><%= flash[:alert] %></p>
+<% end %>
+
+<% if flash[:notice].present? %>
+  <p><%= flash[:notice] %></p>
+<% end %>
 
 <p>名前：<%= @account.name %></p>
 <p>メール：<%= @account.email %></p>
@@ -17,6 +24,14 @@
 <p>
   <%= button_to "ログアウト", session_path, method: :delete %>
 </p>
+
+<% if current_account.id == @account.id %>
+  <%= button_to "退会（アカウント削除）",
+        account_path(@account),
+        method: :delete,
+        form: { data: { turbo: false } },
+        data: { turbo_confirm: "本当に退会しますか？（予約がある場合は退会できません）" } %>
+<% end %>
 
 <p>
   <%= link_to "トップへ戻る", root_path %>

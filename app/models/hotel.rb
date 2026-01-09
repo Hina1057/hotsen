@@ -1,13 +1,14 @@
 class Hotel < ApplicationRecord
     AREAS = [
-        "箱根",
-        "熱海",
-        "草津",
-        "伊香保",
-        "別府",
-        "登別",
-        "道後"
-      ]
+    "横浜",
+    "箱根",
+    "熱海",
+    "草津",
+    "伊香保",
+    "別府",
+    "登別",
+    "道後"
+  ]
 
     before_validation :normalize_phone_number
     has_many :rooms, dependent: :destroy

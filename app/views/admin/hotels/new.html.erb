@@ -11,12 +11,12 @@
 <%= form_with model: [:admin, @hotel], local: true do |f| %>
   <div>
     <%= f.label :name, "ホテル名" %><br>
-    <%= f.select :area, Hotel::AREAS %>
+    <%= f.text_field :name %>
   </div>
 
   <div>
     <%= f.label :area, "エリア" %><br>
-    <%= f.text_field :area %>
+    <%= f.select :area, Hotel::AREAS %>
   </div>
 
   <div>

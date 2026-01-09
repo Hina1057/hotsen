@@ -1,5 +1,9 @@
 <h1>ホテル詳細（管理者）</h1>
-
+<%= button_to "削除",
+            admin_hotel_path(@hotel),
+            method: :delete,
+            form: { onsubmit: "return confirm('削除します。よろしいですか？');" } %>
+        </td>
 <p><%= link_to "編集", edit_admin_hotel_path(@hotel) %></p>
 
 

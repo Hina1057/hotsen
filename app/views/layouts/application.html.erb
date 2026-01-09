@@ -11,23 +11,40 @@
   </head>
 
   <body>
-    <header style="padding: 10px; border-bottom: 1px solid #ccc; display:flex; align-items:center; gap:16px;">
-  <%= link_to root_path, style: "text-decoration: none; display: flex; align-items: center; gap:10px;" do %>
-    <%= image_tag "logo.png", alt: "アプリロゴ", style: "height: 40px;" %>
-    <span style="font-size: 20px; font-weight: bold; color: #333;">
-      HotSen
-    </span>
-  <% end %>
+    <% is_admin = controller_path.start_with?("admin/") %>
+    <% logo_path = is_admin ? admin_root_path : root_path %>
 
-  <div style="margin-left:auto;">
-    <% if logged_in? || admin_logged_in? %>
-      <%= button_to "ログアウト", session_path, method: :delete, form: { data: { turbo: false } } %>
-    <% else %>
-      <%= link_to "ログイン", new_session_path %>
-       <%= link_to "新規会員登録", new_account_path %>
-    <% end %>
-  </div>
-</header>
+    <header style="padding: 10px; border-bottom: 1px solid #ccc; display:flex; align-items:center; gap:16px;">
+      <%= link_to logo_path, style: "text-decoration: none; display: flex; align-items: center; gap:10px;" do %>
+        <%= image_tag "logo.png", alt: "アプリロゴ", style: "height: 40px;" %>
+        <span style="font-size: 20px; font-weight: bold; color: #333;">
+          HotSen
+        </span>
+      <% end %>
+
+      <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
+        <% if is_admin %>
+          <% if admin_logged_in? %>
+            <%= button_to "管理者ログアウト",
+                  admin_session_path,
+                  method: :delete,
+                  form: { data: { turbo: false } } %>
+          <% else %>
+            <%= link_to "管理者ログイン", new_admin_session_path %>
+          <% end %>
+        <% else %>
+          <% if logged_in? %>
+            <%= button_to "ログアウト",
+                  session_path,
+                  method: :delete,
+                  form: { data: { turbo: false } } %>
+          <% else %>
+            <%= link_to "ログイン", new_session_path %>
+            <%= link_to "新規会員登録", new_account_path %>
+          <% end %>
+        <% end %>
+      </div>
+    </header>
 
     <%= yield %>
   </body>

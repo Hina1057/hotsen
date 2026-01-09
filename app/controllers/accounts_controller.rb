@@ -33,8 +33,25 @@ class AccountsController < ApplicationController
     end
   end
 
+  def destroy
+    @account = Account.find(params[:id])
+  
+    if @account.id != current_account.id
+      redirect_to account_path(current_account), alert: "権限がありません"
+      return
+    end
+  
+    if @account.reservations.exists?
+      redirect_to account_path(@account), alert: "予約があるため退会できません"
+      return
+    end
+  
+    @account.destroy
+    reset_session
+    redirect_to root_path, notice: "退会しました"
+  end
+
   def reservations
-    # 他人の予約一覧を見せない
     if params[:id].to_i != current_account.id
       redirect_to account_path(current_account), alert: "権限がありません"
       return

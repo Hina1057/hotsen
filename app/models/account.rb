@@ -1,7 +1,7 @@
 class Account < ApplicationRecord
     has_secure_password
   
-    has_many :reservations, dependent: :destroy
+    has_many :reservations, dependent: :restrict_with_error
   
     enum sex: { unknown: 0, male: 1, female: 2 }
   

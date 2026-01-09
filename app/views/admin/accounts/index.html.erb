@@ -1,8 +1,29 @@
 <h1>会員一覧</h1>
-<li><%= link_to "新規管理者登録", admin_admins_path %></li>
-<li><%= link_to "管理者一覧", admin_admins_path %></li>
+<li><%= link_to "新規管理者登録", new_admin_admin_path%></li>
 
+<h3>管理者一覧</h3>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @admins.each do |a| %>
+      <tr>
+        <td><%= a.id %></td>
+        <td><%= link_to a.name, edit_admin_admin_path(a) %></td>
+        <td>
+          <%= button_to "削除", admin_admin_path(a), method: :delete, data: { confirm: "削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
+<h3>会員一覧</h3>
 <table>
   <thead>
     <tr>

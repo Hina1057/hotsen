@@ -49,6 +49,7 @@ class Admin::HotelsController < Admin::ApplicationController
   def hotel_params
     params.require(:hotel).permit(
       :name, :address, :area, :phone_number,
+      :parking_capacity,
       :wifi, :large_bath, :openair_bath, :sauna, :bedrock_bath,
       :barrier_free, :smoking_area,
       :information, :hotel_photo

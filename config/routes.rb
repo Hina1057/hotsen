@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   # 会員（account）
-  resources :accounts, path: "account", only: [:new, :create, :show, :edit, :update] do
+  resources :accounts, path: "account", only: [:new, :create, :show, :edit, :update, :destroy] do
     member do
       # 1.3 現在の予約情報（予約一覧）
       get :reservations
