@@ -14,9 +14,8 @@
     <% @admins.each do |a| %>
       <tr>
         <td><%= a.id %></td>
-        <td><%= a.name %></td>
+        <td><%= link_to a.name, edit_admin_admin_path(a) %></td>
         <td>
-          <%= link_to "編集", edit_admin_admin_path(a) %>
           <%= button_to "削除", admin_admin_path(a), method: :delete, data: { confirm: "削除しますか？" } %>
         </td>
       </tr>

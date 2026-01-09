@@ -31,6 +31,11 @@
     <%= number_field_tag :guest_count, (params[:guest_count] || 1), min: 1 %>
   </div>
 
+  <div>
+    <label>予算（1泊あたり上限）</label>
+    <%= number_field_tag :budget, params[:budget], min: 0 %>
+  </div>
+
   <h3>設備条件</h3>
 
 <div><%= check_box_tag :wifi, "1", params[:wifi].present? %> Wi-Fi</div>

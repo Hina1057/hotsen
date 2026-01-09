@@ -9,8 +9,8 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-      session[:account_id] = @account.id
-      redirect_to account_path(@account), notice: "登録しました"
+      # 自動ログインしない
+      redirect_to new_session_path, notice: "登録が完了しました。ログインしてください"
     else
       render :new, status: :unprocessable_entity
     end

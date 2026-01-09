@@ -14,11 +14,7 @@
   <ul>
     <% @hotels.each do |hotel| %>
       <li>
-        <%= link_to hotel.name, hotel_path(hotel,
-              check_in_on: @check_in_on,
-              stay_count: @stay_count,
-              guest_count: @guest_count
-            ) %>
+        <%= link_to hotel.name, hotel_path(hotel, request.query_parameters) %>
         （<%= hotel.area %> / <%= hotel.address %>）
       </li>
     <% end %>

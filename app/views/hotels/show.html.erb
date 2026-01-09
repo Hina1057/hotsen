@@ -6,12 +6,7 @@
 <p>駐車可能台数：<%= @hotel.parking_capacity %></p>
 
 <hr>
-<%= link_to "このホテルを予約する",
-    new_hotel_reservation_path(@hotel,
-      check_in_on: params[:check_in_on],
-      stay_count: params[:stay_count],
-      guest_count: params[:guest_count]
-    ) %>
+<%= link_to "このホテルを予約する", new_hotel_reservation_path(@hotel, request.query_parameters) %>
 
 <h3>設備・サービス</h3>
 
@@ -47,4 +42,4 @@
   <p>部屋情報がありません。</p>
 <% end %>
 
-<p><%= link_to "一覧へ戻る", hotels_path(area: params[:area], check_in_on: params[:check_in_on], stay_count: params[:stay_count], guest_count: params[:guest_count]) %></p>
+<p><%= link_to "一覧へ戻る", hotels_path(request.query_parameters) %></p>

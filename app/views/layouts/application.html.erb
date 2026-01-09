@@ -20,7 +20,7 @@
   <% end %>
 
   <div style="margin-left:auto;">
-    <% if logged_in? %>
+    <% if logged_in? || admin_logged_in? %>
       <%= button_to "ログアウト", session_path, method: :delete, form: { data: { turbo: false } } %>
     <% else %>
       <%= link_to "ログイン", new_session_path %>

@@ -16,9 +16,8 @@
     <% @accounts.each do |a| %>
       <tr>
         <td><%= a.id %></td>
-        <td><%= a.name %></td>
+        <td><%= link_to a.name, admin_account_path(a) %></td>
         <td><%= a.email %></td>
-        <td><%= link_to "詳細", admin_account_path(a) %></td>
       </tr>
     <% end %>
   </tbody>

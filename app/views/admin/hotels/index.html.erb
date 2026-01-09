@@ -16,11 +16,10 @@
     <% @hotels.each do |hotel| %>
       <tr>
         <td><%= hotel.id %></td>
-        <td><%= hotel.name %></td>
+        <td><%= link_to hotel.name, admin_hotel_path(hotel) %></td>
         <td><%= hotel.area %></td>
         <td><%= hotel.phone_number %></td>
         <td>
-          <%= link_to "詳細", admin_hotel_path(hotel) %>
           <%= button_to "削除",
             admin_hotel_path(hotel),
             method: :delete,
