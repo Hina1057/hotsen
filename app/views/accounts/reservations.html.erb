@@ -1,13 +1,6 @@
 <div class="res-list-wrap">
   <h1 class="res-list-title">現在の予約情報</h1>
 
-  <% if flash[:alert].present? %>
-    <div class="flash"><%= flash[:alert] %></div>
-  <% end %>
-
-  <% if flash[:notice].present? %>
-    <div class="flash"><%= flash[:notice] %></div>
-  <% end %>
 
   <% if @reservations.empty? %>
     <div class="card notice-card">

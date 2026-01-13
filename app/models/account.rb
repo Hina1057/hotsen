@@ -2,6 +2,7 @@ class Account < ApplicationRecord
     has_secure_password
   
     has_many :reservations, dependent: :restrict_with_error
+    before_validation { self.email = email.to_s.strip.downcase }
   
     enum sex: { unknown: 0, male: 1, female: 2 }
   
@@ -18,6 +19,10 @@ class Account < ApplicationRecord
           allow_blank: true
 
   private
+
+  before_validation do
+    self.email = email.to_s.strip.downcase
+  end
 
   def birthday_cannot_be_in_the_future
     return if birthday.blank?

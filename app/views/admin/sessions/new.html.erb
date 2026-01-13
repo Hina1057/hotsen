@@ -1,19 +1,17 @@
 <h1>管理者ログイン</h1>
 
-<% if flash[:alert].present? %>
-  <p><%= flash[:alert] %></p>
-<% end %>
+
 
 <%= form_with url: admin_session_path, method: :post, local: true do %>
-  <div>
-    <label>名前</label><br>
+  <div class="form-field">
+    <label>名前</label>
     <%= text_field_tag :name %>
   </div>
 
-  <div>
-    <label>パスワード</label><br>
+  <div class="form-field">
+    <label>パスワード</label>
     <%= password_field_tag :password %>
   </div>
 
-  <%= submit_tag "ログイン" %>
+  <%= submit_tag "ログイン", class: "btn btn--primary" %>
 <% end %>

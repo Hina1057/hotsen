@@ -951,3 +951,35 @@
     flex-wrap: wrap;
     margin-top: 12px;
   }
+
+  /* 共通ボタン */
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  /* 危険操作（キャンセル・削除） */
+  .btn--danger {
+    background: #e53935;
+    color: #fff;
+    border: 1px solid #e53935;
+  }
+  
+  .btn--danger:hover {
+    background: #c62828;
+  }
+  
+  /* 念のため button_to 対策 */
+  .btn--danger input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+  }

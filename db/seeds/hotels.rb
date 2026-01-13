@@ -5,7 +5,7 @@ Room.destroy_all
 
 hotels = [
   {
-    name: "横浜ベイサイド温泉ホテル",
+    name: "横浜1号店",
     area: "横浜",
     address: "神奈川県横浜市中区1-1-1",
     phone_number: "045-111-1111",
@@ -20,7 +20,8 @@ hotels = [
     information: "横浜港を一望できる展望温泉が魅力のホテルです。",
     rooms: [
       { room_type: :single, room_price: 9000, room_stock: 5 },
-      { room_type: :double, room_price: 14000, room_stock: 4 }
+      { room_type: :double, room_price: 14000, room_stock: 4 },
+      { room_type: :twin, room_price: 15000, room_stock: 3 }
     ]
   },
   {

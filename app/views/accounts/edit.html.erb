@@ -47,7 +47,10 @@
 
         <div class="form-field">
           <%= f.label :sex, "性別" %>
-          <%= f.select :sex, Account.sexes.keys.map { |k| [k, k] }, {}, class: "input" %>
+          <%= f.select :sex,
+      [["男性", "male"], ["女性", "female"]],
+      {},
+      class: "input" %>
         </div>
       </div>
 

@@ -1,6 +1,5 @@
 <h1>予約詳細（管理者）</h1>
 
-<p>ID: <%= @reservation.id %></p>
 
 <h2>予約者</h2>
 <p><%= @reservation.account.name %>（<%= @reservation.account.email %>）</p>
@@ -19,5 +18,15 @@
 <p>合計金額: <%= @reservation.total_price %></p>
 
 <p>作成日時: <%= @reservation.created_at %></p>
+
+<hr>
+
+<%= button_to "この予約をキャンセル",
+      admin_reservation_path(@reservation),
+      method: :delete,
+      form: { data: { turbo: false } },
+      data: { turbo_confirm: "この予約をキャンセルします。本当によろしいですか？" },
+      class: "btn btn--danger" %>
+
 
 <p><%= link_to "一覧へ戻る", admin_reservations_path %></p>

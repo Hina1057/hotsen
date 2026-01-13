@@ -52,7 +52,6 @@
     <tbody>
       <% @rooms.each do |r| %>
         <tr>
-          <td><%= r.id %></td>
           <td><%= r.room_type %></td>
           <td><%= r.max_person %></td>
           <td><%= r.room_price %></td>
@@ -67,6 +66,46 @@
   </table>
 <% else %>
   <p>部屋がありません。</p>
+<% end %>
+
+<hr>
+
+<h2>このホテルの予約一覧</h2>
+
+<% if @reservations.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>予約ID</th>
+        <th>予約者</th>
+        <th>メール</th>
+        <th>部屋</th>
+        <th>チェックイン</th>
+        <th>泊数</th>
+        <th>人数</th>
+        <th>合計</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @reservations.each do |r| %>
+        <tr>
+          <td><%= r.id %></td>
+          <td><%= r.account.name %></td>
+          <td><%= r.account.email %></td>
+          <td><%= r.room.room_type %></td>
+          <td><%= r.check_in_on %></td>
+          <td><%= r.stay_count %></td>
+          <td><%= r.guest_count %></td>
+          <td><%= r.total_price %>円</td>
+          <td><%= link_to "予約詳細", admin_reservation_path(r) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>このホテルの予約はありません。</p>
 <% end %>
 
 

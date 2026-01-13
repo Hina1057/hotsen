@@ -7,7 +7,12 @@ class Admin::HotelsController < Admin::ApplicationController
   end
 
   def show
+    @hotel = Hotel.find(params[:id])
     @rooms = @hotel.rooms.order(:id)
+  
+    @reservations = @hotel.reservations
+                          .includes(:account, :room)
+                          .order(check_in_on: :asc, created_at: :desc)
   end
 
   def new
