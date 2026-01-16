@@ -4,7 +4,11 @@ class Account < ApplicationRecord
     has_many :reservations, dependent: :restrict_with_error
     before_validation { self.email = email.to_s.strip.downcase }
   
-    enum sex: { unknown: 0, male: 1, female: 2 }
+    enum sex: {
+      unknown: 0,
+      male: 1,
+      female: 2
+    }
   
     validates :name, presence: true
     validates :email, presence: true, uniqueness: true
