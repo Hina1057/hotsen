@@ -8,7 +8,11 @@
   <% @hotels.each do |hotel| %>
     <div class="hotel-card">
       <div class="hotel-photo">
-        <!-- 画像があるなら後でここに表示 -->
+        <% if hotel.images.attached? %>
+          <%= image_tag hotel.images.first, style:"width:100%; height:100%; object-fit:cover; border-radius:12px;" %>
+        <% else %>
+          <div class="hotel-photo"></div>
+        <% end %>
       </div>
 
       <div class="hotel-main">

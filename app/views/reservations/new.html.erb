@@ -3,10 +3,7 @@
     <h1 class="resv-title">予約画面</h1>
     <p class="help-text"><%= @hotel.name %></p>
 
-    <% if flash[:alert].present? %>
-      <div class="flash"><%= flash[:alert] %></div>
-    <% end %>
-
+  
     <% if @reservation.errors.any? %>
       <div class="flash">
         <ul style="margin:0; padding-left:18px;">

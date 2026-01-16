@@ -8,6 +8,16 @@
 
 
 
+<% if @hotel.images.attached? %>
+  <% @hotel.images.each do |img| %>
+    <%= image_tag img, style: "max-width:240px; height:auto; border-radius:12px; margin-right:10px;" %>
+  <% end %>
+<% else %>
+  <p>画像はまだありません。</p>
+<% end %>
+
+
+
 <p>ホテル名: <%= @hotel.name %></p>
 <p>エリア: <%= @hotel.area %></p>
 <p>住所: <%= @hotel.address %></p>
@@ -91,7 +101,6 @@
     <tbody>
       <% @reservations.each do |r| %>
         <tr>
-          <td><%= r.id %></td>
           <td><%= r.account.name %></td>
           <td><%= r.account.email %></td>
           <td><%= r.room.room_type %></td>

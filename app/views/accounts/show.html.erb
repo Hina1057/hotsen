@@ -27,6 +27,18 @@
         </div>
 
         <div class="kv-item">
+        <div class="k">性別</div>
+        <div class="v">
+          <%= case @account.sex
+            when "unanswered" then "未回答"
+            when "male" then "男性"
+            when "female" then "女性"
+          end %>
+          </div>
+        </div>
+        
+
+        <div class="kv-item">
           <div class="k">電話番号</div>
           <div class="v"><%= @account.phone_number %></div>
         </div>

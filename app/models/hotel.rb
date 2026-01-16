@@ -7,9 +7,14 @@ class Hotel < ApplicationRecord
         "藤沢"
       ]
 
+
     before_validation :normalize_phone_number
     has_many :rooms, dependent: :destroy
     has_many :reservations, dependent: :destroy
+    has_many_attached :images
+    validate :images_type
+
+
   
     validates :name, presence: true
     validates :address, presence: true
@@ -29,6 +34,14 @@ class Hotel < ApplicationRecord
   def normalize_phone_number
     return if phone_number.blank?
     self.phone_number = phone_number.tr("０-９", "0-9").strip
+  end
+
+  def images_type
+    images.each do |image|
+      unless image.content_type.in?(%w[image/jpeg image/png])
+        errors.add(:images, "はJPEGまたはPNGのみ対応しています")
+      end
+    end
   end
 
   end

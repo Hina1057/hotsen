@@ -1,7 +1,11 @@
 puts "Loading hotels..."
 
-Hotel.destroy_all
+image_path = Rails.root.join("db/seed_images/hotel.jpg")
+
+# 予約も消すなら先に（必要なら）
+Reservation.destroy_all
 Room.destroy_all
+Hotel.destroy_all
 
 hotels = [
   {
@@ -21,7 +25,7 @@ hotels = [
     rooms: [
       { room_type: :single, room_price: 9000, room_stock: 5 },
       { room_type: :double, room_price: 14000, room_stock: 4 },
-      { room_type: :twin, room_price: 15000, room_stock: 3 }
+      { room_type: :twin,   room_price: 15000, room_stock: 3 }
     ]
   },
   {
@@ -95,7 +99,7 @@ hotels = [
     information: "湘南の海を感じられるリゾート型温泉ホテル。",
     rooms: [
       { room_type: :double, room_price: 18000, room_stock: 5 },
-      { room_type: :twin, room_price: 20000, room_stock: 4 }
+      { room_type: :twin,   room_price: 20000, room_stock: 4 }
     ]
   }
 ]
@@ -103,8 +107,17 @@ hotels = [
 hotels.each do |data|
   rooms = data.delete(:rooms)
   hotel = Hotel.create!(data)
+
   rooms.each do |room|
-    hotel.rooms.create!(room.merge(max_person: Room.room_types[room[:room_type]] == 0 ? 1 : 2))
+    hotel.rooms.create!(room)
+  end
+
+  if File.exist?(image_path)
+    hotel.images.attach(
+      io: File.open(image_path),
+      filename: "hotel.jpg",
+      content_type: "image/jpeg"
+    )
   end
 end
 

@@ -20,9 +20,13 @@ class Admin::HotelsController < Admin::ApplicationController
   end
 
   def create
-    @hotel = Hotel.new(hotel_params)
+    @hotel = Hotel.new(hotel_params.except(:images))
+  
     if @hotel.save
-      redirect_to admin_hotels_path, notice: "ホテルを追加しました"
+      files = Array(hotel_params[:images]).select { |f| f.is_a?(ActionDispatch::Http::UploadedFile) }
+      @hotel.images.attach(files) if files.any?
+  
+      redirect_to admin_hotel_path(@hotel), notice: "ホテルを追加しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,7 +36,12 @@ class Admin::HotelsController < Admin::ApplicationController
   end
 
   def update
-    if @hotel.update(hotel_params)
+    attrs = hotel_params.except(:images)
+  
+    if @hotel.update(attrs)
+      files = Array(params.dig(:hotel, :images)).select { |f| f.is_a?(ActionDispatch::Http::UploadedFile) }
+      @hotel.images.attach(files) if files.any?
+  
       redirect_to admin_hotel_path(@hotel), notice: "ホテル情報を更新しました"
     else
       render :edit, status: :unprocessable_entity
@@ -53,11 +62,13 @@ class Admin::HotelsController < Admin::ApplicationController
 
   def hotel_params
     params.require(:hotel).permit(
-      :name, :address, :area, :phone_number,
-      :parking_capacity,
+      :name, :address, :area, :phone_number, :parking_capacity,
       :wifi, :large_bath, :openair_bath, :sauna, :bedrock_bath,
       :barrier_free, :smoking_area,
-      :information, :hotel_photo
+      :information,
+      images: []   
     )
   end
+    
+    
 end

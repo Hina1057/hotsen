@@ -9,6 +9,12 @@
 <% end %>
 
 <%= form_with model: [:admin, @hotel], local: true do |f| %>
+  <div class="form-field">
+  <%= f.label :images, "ホテル画像" %><br>
+  <%= f.file_field :images, multiple: true, include_hidden: false %>
+  </div>
+
+
   <div>
     <%= f.label :name, "ホテル名" %><br>
     <%= f.text_field :name %>

@@ -8,6 +8,7 @@ class AccountsController < ApplicationController
 
   def create
     @account = Account.new(account_params)
+    Rails.logger.debug "password length = #{params.dig(:account, :password).to_s.length}"
     if @account.save
       # 自動ログインしない
       redirect_to new_session_path, notice: "登録が完了しました。ログインしてください"
