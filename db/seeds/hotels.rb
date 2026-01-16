@@ -2,7 +2,7 @@ puts "Loading hotels..."
 
 image_path = Rails.root.join("db/seed_images/hotel.jpg")
 
-# 予約も消すなら先に（必要なら）
+
 Reservation.destroy_all
 Room.destroy_all
 Hotel.destroy_all
@@ -26,6 +26,26 @@ hotels = [
       { room_type: :single, room_price: 9000, room_stock: 5 },
       { room_type: :double, room_price: 14000, room_stock: 4 },
       { room_type: :twin,   room_price: 15000, room_stock: 3 }
+    ]
+  },
+  {
+    name: "横浜戸塚店",
+    area: "横浜",
+    address: "神奈川県横浜市戸塚区1-1-1",
+    phone_number: "045-222-1121",
+    parking_capacity: 20,
+    wifi: false,
+    large_bath: true,
+    openair_bath: true,
+    sauna: true,
+    bedrock_bath: false,
+    barrier_free: true,
+    smoking_area: true,
+    information: "横浜とは思えない田舎",
+    rooms: [
+      { room_type: :single, room_price: 5000, room_stock: 10 },
+      { room_type: :double, room_price: 7000, room_stock: 5 },
+      { room_type: :twin,   room_price: 10000, room_stock: 7 }
     ]
   },
   {

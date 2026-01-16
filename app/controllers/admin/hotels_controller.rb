@@ -26,7 +26,7 @@ class Admin::HotelsController < Admin::ApplicationController
       files = Array(hotel_params[:images]).select { |f| f.is_a?(ActionDispatch::Http::UploadedFile) }
       @hotel.images.attach(files) if files.any?
   
-      redirect_to admin_hotel_path(@hotel), notice: "ホテルを追加しました"
+      redirect_to admin_hotels_path, notice: "ホテルを追加しました"
     else
       render :new, status: :unprocessable_entity
     end
