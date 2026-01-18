@@ -35,9 +35,25 @@
 
       <div class="hotel-side">
         <div class="price">
-          <small>1泊あたり目安</small>
-          <%= hotel.rooms.minimum(:room_price) || "-" %>円
-        </div>
+  <small>1泊あたり目安</small>
+  <% room_type =
+       case params[:guest_count].to_i
+       when 1 then Room.room_types[:single]
+       when 2 then Room.room_types[:double]
+       else nil
+       end
+  %>
+
+  <% price =
+       if room_type
+         hotel.rooms.where(room_type: room_type).minimum(:room_price)
+       else
+         hotel.rooms.minimum(:room_price)
+       end
+  %>
+
+  <%= price.present? ? "#{price}円" : "-" %>
+</div>
 
         <%= link_to "詳細を見る",
               hotel_path(hotel, request.query_parameters),

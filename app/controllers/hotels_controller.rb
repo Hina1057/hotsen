@@ -41,6 +41,15 @@ class HotelsController < ApplicationController
     scope = scope.where("rooms.room_price <= ?", budget_value) if budget_value
     scope = scope.where("rooms.room_stock > 0")
 
+    room_type =
+      case @guest_count
+      when 1 then Room.room_types[:single]
+      when 2 then Room.room_types[:double]  # ★ 2人ならdouble
+      else nil
+    end
+
+    scope = scope.where(rooms: { room_type: room_type }) if room_type
+
     # 設備（hotelsのboolean）
     @facilities.each do |key|
       scope = scope.where("hotels.#{key} = ?", true)
