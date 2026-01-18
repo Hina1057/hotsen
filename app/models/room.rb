@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
     belongs_to :hotel
     has_many :reservations, dependent: :destroy
+    has_many :room_inventories, dependent: :destroy
   
     enum room_type: { single: 0, double: 1, twin: 2 }, _prefix: true
   

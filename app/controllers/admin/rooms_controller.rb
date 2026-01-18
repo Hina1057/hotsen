@@ -20,8 +20,33 @@ class Admin::RoomsController < Admin::ApplicationController
   end
 
   def update
+    @hotel = Hotel.find(params[:hotel_id])
+    @room  = @hotel.rooms.find(params[:id])
+  
+    old_stock = @room.room_stock
+  
     if @room.update(room_params)
-      redirect_to admin_hotel_path(@hotel), notice: "部屋を更新しました"
+      new_stock = @room.room_stock
+      diff = new_stock - old_stock
+  
+      if diff != 0
+        RoomInventory.transaction do
+          @room.room_inventories
+               .where("date >= ?", Date.current)
+               .find_each do |inv|
+  
+            new_available = inv.available_count + diff
+  
+            new_available = 0 if new_available < 0
+  
+            new_available = new_stock if new_available > new_stock
+  
+            inv.update!(available_count: new_available)
+          end
+        end
+      end
+  
+      redirect_to admin_hotel_path(@hotel), notice: "部屋情報を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end

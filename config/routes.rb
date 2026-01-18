@@ -55,7 +55,9 @@ Rails.application.routes.draw do
 
     # ホテル管理（一覧・詳細）
     resources :hotels, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-      resources :rooms, only: [:new, :create, :edit, :update, :destroy]
+      resources :rooms, only: [:new, :create, :edit, :update, :destroy] do
+        resources :room_inventories, only: [:index, :edit, :update]
+      end
     end
 
     # 予約管理（一覧・詳細）

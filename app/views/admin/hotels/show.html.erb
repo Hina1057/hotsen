@@ -68,6 +68,7 @@
           <td><%= r.room_stock %></td>
           <td>
             <%= link_to "編集", edit_admin_hotel_room_path(@hotel, r) %>
+            <%= link_to "日別在庫", admin_hotel_room_room_inventories_path(@hotel, r), class: "btn-lite" %>
             <%= button_to "削除", admin_hotel_room_path(@hotel, r), method: :delete, data: { confirm: "削除しますか？" } %>
           </td>
         </tr>

@@ -1,0 +1,30 @@
+<h1>日別在庫（管理者）</h1>
+
+<p>
+  ホテル：<%= @hotel.name %><br>
+  部屋タイプ：<%= @room.room_type %>（総室数：<%= @room.room_stock %>）
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>日付</th>
+      <th>販売可能数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inventories.each do |inv| %>
+      <tr>
+        <td><%= inv.date %></td>
+        <td><%= inv.available_count %></td>
+        <td>
+          <%= link_to "編集",
+                edit_admin_hotel_room_room_inventory_path(@hotel, @room, inv),
+                class: "btn-lite" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "ホテル詳細へ戻る", admin_hotel_path(@hotel), class: "btn-lite" %></p>

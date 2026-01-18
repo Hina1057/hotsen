@@ -1,0 +1,29 @@
+<h1>日別在庫の編集</h1>
+
+<p>
+  ホテル：<%= @hotel.name %><br>
+  部屋タイプ：<%= @room.room_type %>（総室数：<%= @room.room_stock %>）<br>
+  日付：<%= @inventory.date %>
+</p>
+
+<% if @inventory.errors.any? %>
+  <div class="errors-box">
+    <ul>
+      <% @inventory.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: [:admin, @hotel, @room, @inventory], local: true do |f| %>
+  <div class="form-field">
+    <%= f.label :available_count, "販売可能数" %>
+    <%= f.number_field :available_count, min: 0, max: @room.room_stock, class: "input" %>
+  </div>
+
+  <div class="auth-actions">
+    <%= f.submit "更新する", class: "btn btn--primary" %>
+    <%= link_to "戻る", admin_hotel_room_room_inventories_path(@hotel, @room), class: "btn-lite" %>
+  </div>
+<% end %>
