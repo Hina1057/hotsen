@@ -42,7 +42,7 @@ class Admin::HotelsController < Admin::ApplicationController
       files = Array(params.dig(:hotel, :images)).select { |f| f.is_a?(ActionDispatch::Http::UploadedFile) }
       @hotel.images.attach(files) if files.any?
   
-      redirect_to admin_hotel_path(@hotel), notice: "ホテル情報を更新しました"
+      redirect_to admin_hotels_path, notice: "ホテル情報を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end

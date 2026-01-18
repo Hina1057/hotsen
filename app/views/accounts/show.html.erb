@@ -50,7 +50,7 @@
       </div>
 
       <p class="help-muted">
-        退会は「予約がない場合のみ」可能です。
+        退会すると、現在の予約はすべてキャンセルされます。
       </p>
     </div>
 
@@ -68,7 +68,7 @@
           <%= button_to "退会（アカウント削除）",
                 account_path(@account),
                 method: :delete,
-                form: { data: { turbo: false }, onsubmit: "return confirm('本当に退会しますか？（予約がある場合は退会できません）');" },
+                form: { data: { turbo: false }, onsubmit: "return confirm('本当に退会しますか？（現在の予約はすべてキャンセルされます）');" },
                 class: "btn-danger" %>
         <% end %>
 

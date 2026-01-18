@@ -1,7 +1,7 @@
 class Account < ApplicationRecord
     has_secure_password
   
-    has_many :reservations, dependent: :restrict_with_error
+    has_many :reservations, dependent: :destroy
     before_validation { self.email = email.to_s.strip.downcase }
   
     enum sex: {

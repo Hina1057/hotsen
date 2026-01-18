@@ -35,21 +35,17 @@ class AccountsController < ApplicationController
   end
 
   def destroy
-    @account = Account.find(params[:id])
+    @account = current_account
   
-    if @account.id != current_account.id
-      redirect_to account_path(current_account), alert: "権限がありません"
-      return
+    ActiveRecord::Base.transaction do
+      @account.reservations.destroy_all
+      @account.destroy!
     end
   
-    if @account.reservations.exists?
-      redirect_to account_path(@account), alert: "予約があるため退会できません"
-      return
-    end
-  
-    @account.destroy
     reset_session
-    redirect_to root_path, notice: "退会しました"
+    redirect_to root_path, notice: "退会処理が完了しました。ご利用ありがとうございました。"
+  rescue
+    redirect_to account_path(@account), alert: "退会処理に失敗しました"
   end
 
   def reservations

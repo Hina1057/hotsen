@@ -13,7 +13,7 @@ class Admin::AdminsController < Admin::ApplicationController
   def create
     @admin = Admin.new(admin_params)
     if @admin.save
-      redirect_to admin_admins_path, notice: "管理者を追加しました"
+      redirect_to admin_accounts_path, notice: "管理者を追加しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,7 +24,7 @@ class Admin::AdminsController < Admin::ApplicationController
 
   def update
     if @admin.update(admin_update_params)
-      redirect_to admin_admins_path, notice: "管理者を更新しました"
+      redirect_to admin_accounts_path, notice: "管理者を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class Admin::AdminsController < Admin::ApplicationController
   def destroy
     # 管理者が1人しかいない場合は削除不可
     if Admin.count <= 1
-      redirect_to admin_admins_path, alert: "管理者が1人しかいないため削除できません"
+      redirect_to admin_accounts_path, alert: "管理者が1人しかいないため削除できません"
       return
     end
   
@@ -52,7 +52,7 @@ class Admin::AdminsController < Admin::ApplicationController
   
     # 他の管理者を削除する場合
     admin.destroy
-    redirect_to admin_admins_path, notice: "管理者を削除しました"
+    redirect_to admin_accounts_path, notice: "管理者を削除しました"
   end
 
   private
