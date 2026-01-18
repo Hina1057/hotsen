@@ -18,6 +18,10 @@ class Reservation < ApplicationRecord
   
     after_create  :decrease_stock
     before_destroy :restore_stock
+
+    def stay_dates
+      (0...stay_count).map { |i| check_in_on + i.days }
+    end
   
     private
   
@@ -43,3 +47,5 @@ class Reservation < ApplicationRecord
       end
     end
   end
+
+  

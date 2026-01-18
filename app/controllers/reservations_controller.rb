@@ -15,37 +15,48 @@ class ReservationsController < ApplicationController
     @rooms = @hotel.rooms.order(:id)
     @reservation = current_account.reservations.new(reservation_params)
     @reservation.hotel_id = @hotel.id
-
-    # 未選択チェック
+  
+    @reservation.check_in_on ||= params[:check_in_on]
+  
     if @reservation.room_id.blank?
       flash.now[:alert] = "部屋グレードを選択してください"
       render :new, status: :unprocessable_entity and return
     end
-
+  
+    if @reservation.check_in_on.blank?
+      flash.now[:alert] = "チェックイン日を入力してください"
+      render :new, status: :unprocessable_entity and return
+    end
+  
+    if @reservation.stay_count.to_i < 1
+      flash.now[:alert] = "宿泊数は1以上を入力してください"
+      render :new, status: :unprocessable_entity and return
+    end
+  
     if @reservation.pay_method.blank?
       flash.now[:alert] = "支払い方法を選択してください"
       render :new, status: :unprocessable_entity and return
     end
-
+  
     calculate_total_price(@reservation)
   end
 
+
   def create
-    @rooms = @hotel.rooms.where("room_stock > 0").order(:id)
-    @reservation = current_account.reservations.new(reservation_params)
-    @reservation.hotel_id = @hotel.id
-
-    # 合計金額はサーバ側で計算（改ざん防止）
-    room = @hotel.rooms.find(@reservation.room_id)
-    base = room.room_price * @reservation.stay_count
-    option = 0
-    option += 1000 * @reservation.stay_count if @reservation.breakfast
-    option += 2000 * @reservation.stay_count if @reservation.dinner
-    @reservation.total_price = base + option
-
-    if @reservation.save
+    @rooms = @hotel.rooms.order(:id)
+  
+    begin
+      @reservation = ReservationCreator.new(
+        account: current_account,
+        hotel: @hotel,
+        params: reservation_params
+      ).call
+  
       redirect_to reservation_path(@reservation), notice: "予約が完了しました"
-    else
+    rescue => e
+      @reservation = current_account.reservations.new(reservation_params)
+      @reservation.hotel_id = @hotel.id
+      flash.now[:alert] = "失敗: #{e.class} #{e.message}"
       render :new, status: :unprocessable_entity
     end
   end
