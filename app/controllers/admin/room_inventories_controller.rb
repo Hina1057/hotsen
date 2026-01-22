@@ -42,7 +42,7 @@ class Admin::RoomInventoriesController < Admin::ApplicationController
       @room = @hotel.rooms.find(params[:room_id])
     end
   
-    # ★ これが ensure_inventories
+    # 
     def ensure_inventories!(from, to)
       (from..to).each do |d|
         @room.room_inventories.find_or_create_by!(date: d) do |inv|

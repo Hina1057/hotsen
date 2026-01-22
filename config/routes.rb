@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # 会員（account）
   resources :accounts, path: "account", only: [:new, :create, :show, :edit, :update, :destroy] do
     member do
-      # 1.3 現在の予約情報（予約一覧）
+      # 現在の予約情報（予約一覧）
       get :reservations
       delete :destroy
     end

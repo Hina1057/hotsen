@@ -15,10 +15,16 @@ class HotelsController < ApplicationController
     errors << "エリアを選択してください" if @area.blank?
     errors << "チェックイン日を入力してください" if @check_in_on.blank?
 
+    limit = Date.current + 30.days
+
     if @check_in_on.present?
       begin
         check_in = Date.parse(@check_in_on)
-        errors << "チェックイン日に過去の日付は指定できません" if check_in < Date.current
+
+        errors << "チェックイン日は今日から30日以内を選択してください" if check_in > limit
+
+        check_out = check_in + (@stay_count - 1)
+        errors << "宿泊期間が30日以内に収まるようにしてください" if check_out > limit
       rescue ArgumentError
         errors << "チェックイン日が正しくありません"
       end

@@ -56,7 +56,7 @@ class ReservationsController < ApplicationController
     rescue => e
       @reservation = current_account.reservations.new(reservation_params)
       @reservation.hotel_id = @hotel.id
-      flash.now[:alert] = "失敗: #{e.class} #{e.message}"
+      flash.now[:alert] = "満室につき予約できません"
       render :new, status: :unprocessable_entity
     end
   end

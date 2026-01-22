@@ -21,11 +21,11 @@
         </div>
 
         <div class="form-field">
-          <label>チェックイン日</label>
           <%= date_field_tag :check_in_on,
-              params[:check_in_on],
-              min: Date.today,
-              class: "input" %>
+          params[:check_in_on],
+          min: Date.current,
+          max: Date.current + 30.days,
+          class: "input" %>
         </div>
 
         <div class="form-field">
