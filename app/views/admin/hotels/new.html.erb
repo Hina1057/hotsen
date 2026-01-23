@@ -22,7 +22,7 @@
 
   <div>
     <%= f.label :area, "エリア" %><br>
-    <%= f.select :area, Hotel::AREAS %>
+    <%= f.select :area, Hotel::AREAS, { include_blank: "選択してください" } %>
   </div>
 
   <div>

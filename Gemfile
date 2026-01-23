@@ -32,3 +32,7 @@ group :development do
 end
 
 gem "rails-ujs"
+
+# Generates ER-diagrams using Graphviz, a visualization library
+  gem 'rails-erd'
+
