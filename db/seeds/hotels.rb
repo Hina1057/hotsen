@@ -23,9 +23,9 @@ hotels = [
     smoking_area: false,
     information: "横浜港を一望できる展望温泉が魅力のホテルです。",
     rooms: [
-      { room_type: :single, room_price: 5000, room_stock: 5 },
-      { room_type: :double, room_price: 7000, room_stock: 4 },
-      { room_type: :twin,   room_price: 15000, room_stock: 3 }
+      { room_type: :single, room_price: 3000, room_stock: 5 },
+      { room_type: :double, room_price: 5000, room_stock: 4 },
+      { room_type: :twin,   room_price: 10000, room_stock: 3 }
     ]
   },
   {

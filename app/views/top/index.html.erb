@@ -42,6 +42,21 @@
           <label>予算（1泊あたり上限）</label>
           <%= number_field_tag :budget, params[:budget], min: 0, class: "input" %>
         </div>
+
+        <div class="form-field">
+          <label>部屋タイプ</label>
+          <%= select_tag :room_type,
+                options_for_select(
+                  [
+                    ["指定なし", ""],
+                    ["single", "single"],
+                    ["double", "double"],
+                    ["twin", "twin"]
+                  ],
+                  params[:room_type]
+                ),
+                class: "input" %>
+        </div>
       </div>
 
       <div class="section-title">設備条件</div>

@@ -5,6 +5,9 @@ class HotelsController < ApplicationController
     @stay_count = (params[:stay_count].presence || 1).to_i
     @guest_count = (params[:guest_count].presence || 1).to_i
 
+    @room_type = params[:room_type].presence
+    
+
     @budget = params[:budget].to_s.strip
     budget_value = @budget.present? ? @budget.to_i : nil
 
@@ -41,28 +44,31 @@ class HotelsController < ApplicationController
       render "top/index", status: :unprocessable_entity and return
     end
 
-    # 検索：hotels × rooms（予算・在庫）
-    scope = Hotel.joins(:rooms).where(hotels: { area: @area })
+    # 検索：hotels × rooms
+scope = Hotel.joins(:rooms)
 
-    scope = scope.where("rooms.room_price <= ?", budget_value) if budget_value
-    scope = scope.where("rooms.room_stock > 0")
+# エリア
+scope = scope.where(hotels: { area: @area })
 
-    room_type =
-      case @guest_count
-      when 1 then Room.room_types[:single]
-      when 2 then Room.room_types[:double]  # ★ 2人ならdouble
-      else nil
-    end
+# 部屋タイプ（指定があるときだけ）
+if @room_type.present?
+  rt = Room.room_types[@room_type]  # "single"->0 など
+  scope = scope.where(rooms: { room_type: rt }) if rt
+end
 
-    scope = scope.where(rooms: { room_type: room_type }) if room_type
+# 予算（1泊あたり上限）
+scope = scope.where("rooms.room_price <= ?", budget_value) if budget_value
 
-    # 設備（hotelsのboolean）
-    @facilities.each do |key|
-      scope = scope.where("hotels.#{key} = ?", true)
-    end
+# 在庫あり（今の方式なら）
+scope = scope.where("rooms.room_stock > 0")
 
-    @hotels = scope.distinct.order("hotels.id")
-    @searched = true
+# 設備（AND）
+@facilities.each do |key|
+  scope = scope.where(hotels: { key => true })
+end
+
+@hotels = scope.distinct.order("hotels.id")
+@searched = true
   end
 
   def show
