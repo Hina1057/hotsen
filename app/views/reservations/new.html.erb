@@ -32,10 +32,10 @@
               class: "input" %>
       </div>
 
-      <div class="resv-row form-field">
-        <label>宿泊数</label>
-        <%= f.number_field :stay_count, min: 1, class: "input" %>
-      </div>
+      <div class="form-field">
+  <label>チェックアウト日</label>
+  <%= date_field_tag :check_out_on, params[:check_out_on], class: "input", min: Date.current, max: Date.current + 30.days %>
+</div>
 
       <div class="resv-row form-field">
         <label>人数</label>
