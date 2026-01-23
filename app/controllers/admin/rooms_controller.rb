@@ -4,7 +4,7 @@ class Admin::RoomsController < Admin::ApplicationController
   before_action :set_room, only: [:edit, :update, :destroy]
 
   def new
-    @room = @hotel.rooms.new
+    @room = @hotel.rooms.new(room_type: nil)
   end
 
   def create

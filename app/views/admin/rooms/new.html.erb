@@ -11,7 +11,8 @@
 <%= form_with model: [:admin, @hotel, @room], local: true do |f| %>
   <div>
     <%= f.label :room_type, "タイプ" %><br>
-    <%= f.select :room_type, Room.room_types.keys.map { |k| [k, k] } %>
+    <%= f.select :room_type, Room.room_types.keys.map { |k| [k, k] },
+      { include_blank: "選択してください" } %>
   </div>
 
   <div>
