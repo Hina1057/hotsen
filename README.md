@@ -44,3 +44,23 @@ ER図は erd.png を参照してください。
 
 大学のWebアプリケーション開発演習の一環として制作した。
 RailsによるWebアプリケーション開発とデータベース設計の理解を目的としている。
+
+### トップページ
+<img width="1440" height="860" alt="スクリーンショット 2026-06-07 16 21 51" src="https://github.com/user-attachments/assets/95e4d604-d73b-4335-9c6b-99f8f57d5a5e" />
+
+### ホテル一覧
+<img width="1440" height="860" alt="スクリーンショット 2026-06-07 16 22 32" src="https://github.com/user-attachments/assets/b524a113-a29b-4084-8a51-47aca7c67ec5" />
+
+### ホテル詳細
+<img width="1440" height="815" alt="スクリーンショット 2026-06-07 16 22 41" src="https://github.com/user-attachments/assets/ddcde03f-7ac0-4f18-8e05-c0c6ece9eff7" />
+
+### 予約画面
+<img width="1440" height="811" alt="スクリーンショット 2026-06-07 16 23 50" src="https://github.com/user-attachments/assets/0523186f-a803-4d84-8d65-57412f78dd4c" />
+
+###　マイページ
+<img width="1440" height="809" alt="スクリーンショット 2026-06-07 16 24 02" src="https://github.com/user-attachments/assets/d2e5559d-9826-4fcf-a662-de8e3bae52cd" />
+
+
+
+
+
