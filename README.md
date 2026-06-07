@@ -57,7 +57,7 @@ RailsによるWebアプリケーション開発とデータベース設計の理
 ### 予約画面
 <img width="1440" height="811" alt="スクリーンショット 2026-06-07 16 23 50" src="https://github.com/user-attachments/assets/0523186f-a803-4d84-8d65-57412f78dd4c" />
 
-###　マイページ
+### マイページ
 <img width="1440" height="809" alt="スクリーンショット 2026-06-07 16 24 02" src="https://github.com/user-attachments/assets/d2e5559d-9826-4fcf-a662-de8e3bae52cd" />
 
 
