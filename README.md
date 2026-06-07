@@ -1,24 +1,46 @@
-# README
+# Hotel Reservation System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 概要
+Ruby on Railsを用いて開発したホテル予約システムです。
+ユーザーは会員登録・ログインを行い、ホテルの閲覧や宿泊予約を行うことができます。
 
-Things you may want to cover:
+## 主な機能
 
-* Ruby version
+- ユーザー登録
+- ログイン・ログアウト
+- ホテル一覧表示
+- ホテル詳細表示
+- 宿泊予約
+- マイページ
+- 予約履歴確認
 
-* System dependencies
+## 使用技術
 
-* Configuration
+- Ruby
+- Ruby on Rails
+- SQLite3
+- HTML
+- CSS
+- Bootstrap
 
-* Database creation
+## データベース設計
 
-* Database initialization
+ER図は erd.png を参照してください。
 
-* How to run the test suite
+## 工夫した点
 
-* Services (job queues, cache servers, search engines, etc.)
+- ユーザー認証機能を実装し、利用者ごとに予約情報を管理できるようにした。
+- ホテル、部屋、予約情報をデータベースで管理し、実際の予約システムを意識した設計を行った。
+- MVCモデルを意識して実装を行い、保守性の高い構成を目指した。
 
-* Deployment instructions
+## 今後の改善点
 
-* ...
+- 決済機能の追加
+- 検索機能の強化
+- UI/UXの改善
+- 管理者向け機能の拡充
+
+## 開発目的
+
+大学のWebアプリケーション開発演習の一環として制作した。
+RailsによるWebアプリケーション開発とデータベース設計の理解を目的としている。
